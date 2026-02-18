@@ -1,12 +1,18 @@
-import { Column, Entity, OneToMany, PrimaryGeneratedColumn, CreateDateColumn, UpdateDateColumn  } from 'typeorm';
+import {
+  Entity,
+  PrimaryGeneratedColumn,
+  Column,
+  OneToMany,
+  CreateDateColumn,
+  UpdateDateColumn,
+} from 'typeorm';
 import { Medal } from '../medals/medals.entity';
-import { Regiment } from '../regiments/regiments.entity';
-
+import { ServiceRecord } from '../service-records/service-record.entity';
 
 @Entity()
 export class Soldier {
   @PrimaryGeneratedColumn('uuid')
-  id: number;
+  id: string;
 
   @Column()
   name: string;
@@ -14,21 +20,21 @@ export class Soldier {
   @Column()
   surname: string;
 
-  @Column()
+  @Column({ nullable: true })
   rank: string;
 
-  @Column()
+  @Column({ nullable: true })
   serviceNumber: string;
-
-  @OneToMany(() => Regiment, regiment => regiment.soldier)
-  regiment: Regiment[];
 
   @OneToMany(() => Medal, medal => medal.soldier)
   medals: Medal[];
 
+  @OneToMany(() => ServiceRecord, sr => sr.soldier)
+  serviceRecords: ServiceRecord[];
+
   @CreateDateColumn()
-  createdAt: Date
+  createdAt: Date;
 
   @UpdateDateColumn()
-  updatedAt: Date
+  updatedAt: Date;
 }

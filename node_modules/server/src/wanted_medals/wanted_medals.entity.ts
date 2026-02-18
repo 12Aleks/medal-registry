@@ -3,8 +3,7 @@ import {
   PrimaryGeneratedColumn,
   Column,
   ManyToOne,
-  CreateDateColumn,
-} from 'typeorm';
+  CreateDateColumn, UpdateDateColumn } from 'typeorm';
 import { Soldier } from '../soldiers/soldiers.entity';
 
 @Entity()
@@ -23,4 +22,7 @@ export class WantedMedal {
 
   @CreateDateColumn()
   createdAt: Date;
+
+    @UpdateDateColumn()
+    updatedAt: Date;
 }
