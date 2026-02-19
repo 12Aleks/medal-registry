@@ -11,6 +11,8 @@ import { RegimentsModule } from './regiments/regiments.module';
 import { ServiceRecordsModule } from './service-records/service-records.module';
 import { ConflictsModule } from './conflicts/conflicts.module';
 import { WantedMedalsModule } from './wanted_medals/wanted_medals.module';
+import { SoldierAwardModule } from './soldiers-award/soldiers-award.module';
+import { ColectionItemModule } from './colections-item/colections-item.module';
 
 @Module({
   imports: [
@@ -38,6 +40,8 @@ import { WantedMedalsModule } from './wanted_medals/wanted_medals.module';
     ServiceRecordsModule,
     ConflictsModule,
     WantedMedalsModule,
+    SoldierAwardModule,
+    ColectionItemModule,
   ],
   controllers: [AppController],
   providers: [AppService],

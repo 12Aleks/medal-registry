@@ -1,31 +1,24 @@
 // apps/api/src/medals/dto/create-medal.dto.ts
-import { IsString, IsOptional, IsUUID, IsNumber } from 'class-validator'
+import { IsString, IsOptional, IsNumber } from 'class-validator'
 import { CreateMedalInput } from '@medal-registry/types'
 
+
 export class CreateMedalDto implements CreateMedalInput {
-  @IsUUID()
-  soldierId: string
+  @IsString()
+  name: string;
+
+  @IsOptional()
+  @IsString()
+  description?: string
 
   @IsString()
   medalType: string
 
   @IsOptional()
-  @IsString()
-  inscriptionText?: string
-
-  @IsOptional()
-  @IsString()
-  serialNumber?: string
+  @IsNumber()
+  establishedYear?: number
 
   @IsOptional()
   @IsNumber()
-  yearAwarded?: number
-
-  @IsOptional()
-  @IsString()
-  condition?: string
-
-  @IsOptional()
-  @IsUUID()
-  conflictId?: string
+  discontinuedYear?: number
 }

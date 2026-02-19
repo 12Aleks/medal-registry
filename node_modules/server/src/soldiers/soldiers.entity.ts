@@ -6,8 +6,8 @@ import {
   CreateDateColumn,
   UpdateDateColumn,
 } from 'typeorm';
-import { Medal } from '../medals/medals.entity';
 import { ServiceRecord } from '../service-records/service-record.entity';
+import { SoldierAward } from 'src/soldiers-award/solders-award.entity';
 
 @Entity()
 export class Soldier {
@@ -26,8 +26,9 @@ export class Soldier {
   @Column({ nullable: true })
   serviceNumber: string;
 
-  @OneToMany(() => Medal, medal => medal.soldier)
-  medals: Medal[];
+  @OneToMany(() => SoldierAward, sa => sa.soldier)
+  awards: SoldierAward[];
+
 
   @OneToMany(() => ServiceRecord, sr => sr.soldier)
   serviceRecords: ServiceRecord[];

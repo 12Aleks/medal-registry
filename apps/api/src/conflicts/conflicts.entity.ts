@@ -3,9 +3,11 @@ import {
   PrimaryGeneratedColumn,
   Column,
   OneToMany,
+  CreateDateColumn,
+  UpdateDateColumn,
 } from 'typeorm';
-import { Medal } from '../medals/medals.entity';
-import { ServiceRecord } from '../service-records/service-record.entity';
+import { ServiceRecord } from 'src/service-records/service-record.entity';
+import { SoldierAward } from 'src/soldiers-award/solders-award.entity';
 
 @Entity()
 export class MilitaryConflict {
@@ -16,14 +18,21 @@ export class MilitaryConflict {
   name: string;
 
   @Column({ nullable: true })
-  startYear: number;
+  startYear?: number;
+  
 
   @Column({ nullable: true })
-  endYear: number;
+  endYear?: number;
 
-  @OneToMany(() => Medal, medal => medal.conflict)
-  medals: Medal[];
+   @OneToMany(() => SoldierAward, sa => sa.conflict)
+  soldierAwards: SoldierAward[];
 
   @OneToMany(() => ServiceRecord, sr => sr.conflict)
   serviceRecords: ServiceRecord[];
+
+  @CreateDateColumn()
+  createdAt: Date;
+
+  @UpdateDateColumn()
+  updatedAt: Date;
 }

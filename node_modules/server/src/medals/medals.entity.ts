@@ -1,6 +1,6 @@
-import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, CreateDateColumn, UpdateDateColumn } from 'typeorm';
-import { Soldier } from '../soldiers/soldiers.entity';
-import { MilitaryConflict } from '../conflicts/conflicts.entity'
+import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateColumn, OneToMany } from 'typeorm';
+
+import { SoldierAward } from '../soldiers-award/solders-award.entity';
 
 
 @Entity()
@@ -9,29 +9,23 @@ export class Medal {
   @PrimaryGeneratedColumn('uuid')
   id: string
 
+  @Column({ unique: true })
+  name: string;
+
+  @Column({ nullable: true })
+  description?: string;
+
   @Column()
   medalType: string
 
   @Column({ nullable: true })
-  inscriptionText?: string
+  establishedYear?: number;
 
   @Column({ nullable: true })
-  serialNumber?: string
+  discontinuedYear?: number;
 
-  @Column({ nullable: true })
-  yearAwarded?: number
-
-  @Column({ nullable: true })
-  condition?: string
-
-  @ManyToOne(() => Soldier, soldier => soldier.medals, { eager: true })
-  soldier: Soldier
-
-  @ManyToOne(() => MilitaryConflict, conflict => conflict.medals, {
-    eager: true,
-    nullable: true,
-  })
-  conflict?: MilitaryConflict
+  @OneToMany(() => SoldierAward, sa => sa.medal)
+  soldierAwards: SoldierAward[];
 
   @CreateDateColumn()
   createdAt: Date
