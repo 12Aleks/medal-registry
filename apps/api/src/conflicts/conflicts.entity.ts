@@ -19,12 +19,12 @@ export class MilitaryConflict {
 
   @Column({ nullable: true })
   startYear?: number;
-  
+
 
   @Column({ nullable: true })
   endYear?: number;
 
-   @OneToMany(() => SoldierAward, sa => sa.conflict)
+  @OneToMany(() => SoldierAward, sa => sa.conflict)
   soldierAwards: SoldierAward[];
 
   @OneToMany(() => ServiceRecord, sr => sr.conflict)

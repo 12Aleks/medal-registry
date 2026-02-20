@@ -13,7 +13,7 @@ export class MedalsService {
     ) { }
 
     async create(dto: CreateMedalDto) {
-    // dto теперь содержит только исторические данные
+ 
     const medal = this.medalsRepo.create({
       name: dto?.name,
       description: dto?.description,

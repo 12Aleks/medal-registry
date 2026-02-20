@@ -5,6 +5,7 @@ import {
   ManyToOne,
   CreateDateColumn, UpdateDateColumn } from 'typeorm';
 import { Soldier } from '../soldiers/soldiers.entity';
+import { Medal } from 'src/medals/medals.entity';
 
 @Entity()
 export class WantedMedal {
@@ -14,15 +15,15 @@ export class WantedMedal {
   @ManyToOne(() => Soldier, { eager: true })
   soldier: Soldier;
 
-  @Column()
-  medalType: string;
+  @ManyToOne(() => Medal, { eager: true })
+  medal: Medal;
 
   @Column({ nullable: true })
-  notes: string;
+  notes?: string;
 
   @CreateDateColumn()
   createdAt: Date;
 
-    @UpdateDateColumn()
-    updatedAt: Date;
+  @UpdateDateColumn()
+  updatedAt: Date;
 }
