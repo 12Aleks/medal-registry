@@ -16,4 +16,9 @@ export class MedalsController {
   findOneMedal(@Param('id') id: string) {
      return this.medalsService.findOne(id)
   }
+
+  @Get('all')
+  findAllMedals() {
+    return this.medalsService.findAll()
+  }
 }
