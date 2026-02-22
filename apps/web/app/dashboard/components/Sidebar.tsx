@@ -42,7 +42,7 @@ export default function Sidebar({ open, onClose }: Props) {
         </div>
 
         <nav className="p-4 space-y-1">
-          <a href="#" className="block rounded px-3 py-2 hover:bg-gray-800">
+          <a href="/" className="block rounded px-3 py-2 hover:bg-gray-800">
             Home
           </a>
           <a href="#" className="block rounded px-3 py-2 hover:bg-gray-800">
