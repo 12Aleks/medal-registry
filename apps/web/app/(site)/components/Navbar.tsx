@@ -1,97 +1,104 @@
 "use client";
 import Link from "next/link";
 import Image from "next/image";
-import { useState } from "react";
+import { useMemo, useState } from "react";
 
-const Navigation = [
-    { name: "Home", href: "/" },
-    { name: "About", href: "/about" },
-    { name: "Services", href: "/services" },
-    { name: "Contact", href: "/contact" },
-    { name: "Dashboard", href: "/dashboard" }
+interface NavItem {
+    name: string;
+    href: string;
+    protected: boolean; 
+    hideIfAuth?: boolean; 
+}
+
+const NAVIGATION_CONFIG: NavItem[] = [
+    { name: "Home", href: "/", protected: false },
+    { name: "About", href: "/about", protected: false },
+    { name: "Services", href: "/services", protected: false },
+    { name: "Contact", href: "/contact", protected: false },
+    { name: "Dashboard", href: "/dashboard", protected: true },
+    { name: "Register", href: "/register", protected: false, hideIfAuth: true },
+    { name: "Login", href: "/login", protected: false, hideIfAuth: true },
 ];
 
 const Navbar: React.FC = () => {
     const [isOpen, setIsOpen] = useState(false);
 
+
+    /*change to Auth hook  */
+    const [isLoggedIn, setIsLoggedIn] = useState(true)
+
+    const visibleNavigation = useMemo(() => {
+        return NAVIGATION_CONFIG.filter(item => {
+            if (item.protected && !isLoggedIn) return false;
+            if (item.hideIfAuth && isLoggedIn) return false;
+            return true;
+        });
+    }, [isLoggedIn]);
+
     return (
-        <nav className="bg-background-blue text-white mb-10">
+        <nav className="bg-background-blue text-white mb-10 shadow-lg">
             <div className="container mx-auto px-4 sm:px-6 lg:px-8">
                 <div className="flex items-center justify-between h-16">
-                    <div className="flex items-start gap-x-3">
-                        <Image
-                            width={50}
-                            height={50} 
-                            src="/logo.png"
-                            alt="Logo" />
-                    <div className="flex flex-col items-start tracking-wider">
-                        <h1 className="text-xl font-bold">British Military</h1>
-                        <p className="text-sm">Medal Registry</p>
-                    </div>
-                    </div>
-                    <div className="hidden md:block">
-                        <div className="ml-10 flex items-baseline space-x-4 [&_a]:text-sm [&_a]:font-medium 
-                        [&_a]:tracking-wider [&_a]:hover:bg-blue-900/50 [&_a]:px-3 [&_a]:py-2 [&_a]:rounded-md
-                        ">
-                          {
-                            Navigation?.map((item) => <Link key={item.name} href={item.href}> {item.name}</Link>)
-                          }
+                    
+                    {/* Brand Logo Section */}
+                    <Logo />
+
+                    {/* Desktop Navigation */}
+                    <div className="hidden md:flex items-center space-x-4">
+                        <div className="flex items-baseline space-x-4 [&_a]:nav-link">
+                            {visibleNavigation.map((item) => (
+                                <Link key={item.name} href={item.href} className="
+                                text-sm font-medium hover:bg-blue-900/50 px-3 py-2 
+                                rounded-sm transition-all tracking-wider duration-300 border border-transparent hover:border-white/20">
+                                    {item.name}
+                                </Link>
+                            ))}
+                        </div>
+
+                      
+                        <div className="ml-4 border-l border-white/20 pl-4">
+                            {isLoggedIn ? (
+                                <button 
+                                    onClick={() => setIsLoggedIn(false)}
+                                    className="text-sm font-medium px-4 py-2 
+                                    border border-white/30 cursor-pointer
+                                    bg-blue-900/70 hover:bg-blue-950 rounded-sm transition-colors duration-300 tracking-wider"
+                                >
+                                    Logout
+                                </button>
+                            ) : (
+                                <span className="text-xs text-white/50 italic tracking-wide">Guest Mode</span>
+                            )}
                         </div>
                     </div>
-                    <div className="-mr-2 flex md:hidden">
-                        <button
-                            onClick={() => setIsOpen(!isOpen)}
-                            type="button"
-                            className="cursor-pointer bg-background-blue/30 inline-flex items-center justify-center p-2 rounded-md text-white hover:bg-blue-800 focus:outline-none"
-                            aria-controls="mobile-menu"
-                            aria-expanded="false"
-                        >
-                            <span className="sr-only">Open main menu</span>
-                            {isOpen ? (
-                                <svg
-                                    className="h-6 w-6"
-                                    xmlns="http://www.w3.org/2000/svg"
-                                    fill="none"
-                                    viewBox="0 0 24 24"
-                                    stroke="currentColor"
-                                    aria-hidden="true"
-                                >
-                                    <path
-                                        strokeLinecap="round"
-                                        strokeLinejoin="round"
-                                        strokeWidth={2}
-                                        d="M6 18L18 6M6 6l12 12"
-                                    />
-                                </svg>
-                            ) : (
-                                <svg
-                                    className="h-6 w-6"
-                                    xmlns="http://www.w3.org/2000/svg"
-                                    fill="none"
-                                    viewBox="0 0 24 24"
-                                    stroke="currentColor"
-                                    aria-hidden="true"
-                                >
-                                    <path
-                                        strokeLinecap="round"
-                                        strokeLinejoin="round"
-                                        strokeWidth={2}
-                                        d="M4 6h16M4 12h16m-7 6h7"
-                                    />
-                                </svg>
-                            )}
-                        </button>
-                    </div>
+
+                    {/* Mobile Button */}
+                    <MobileMenuButton isOpen={isOpen} onClick={() => setIsOpen(!isOpen)} />
                 </div>
             </div>
 
+            {/* Mobile Navigation Panel */}
             {isOpen && (
-                <div className="md:hidden" id="mobile-menu">
-                    <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3 [&_a]:font-medium [&_a]:text-base 
-                    [&_a]:tracking-wide [&_a]:hover:bg-blue-700 [&_a]:block [&_a]:px-3 [&_a]:py-2 [&_a]:rounded-md">
-                       {
-                            Navigation?.map((item) => <Link key={item.name} href={item.href}> {item.name}</Link>)
-                          }
+                <div className="md:hidden bg-blue-900/95 backdrop-blur-sm">
+                    <div className="px-2 pt-2 pb-3 space-y-1">
+                        {visibleNavigation.map((item) => (
+                            <Link 
+                                key={item.name} 
+                                href={item.href}
+                                className="block px-3 py-2 rounded-md text-base font-medium hover:bg-blue-700"
+                                onClick={() => setIsOpen(false)}
+                            >
+                                {item.name}
+                            </Link>
+                        ))}
+                        {isLoggedIn && (
+                            <button 
+                                onClick={() => { setIsLoggedIn(false); setIsOpen(false); }}
+                                className="w-full text-left px-3 py-2 text-red-300 font-medium"
+                            >
+                                Logout
+                            </button>
+                        )}
                     </div>
                 </div>
             )}
@@ -99,4 +106,36 @@ const Navbar: React.FC = () => {
     );
 };
 
-export default Navbar;
+// Вспомогательные компоненты (для чистоты кода)
+const Logo = () => (
+    <div className="flex items-start gap-x-3 cursor-pointer">
+        <Image width={40} height={40} src="/logo.png" alt="Logo" className="object-contain" />
+        <div className="flex flex-col items-start leading-none">
+            <h1 className="text-lg font-bold uppercase tracking-wider">British Military</h1>
+            <span className="text-[10px] opacity-80 tracking-wider">Medal Registry</span>
+        </div>
+    </div>
+);
+
+const MobileMenuButton = ({ isOpen, onClick }: { isOpen: boolean, onClick: () => void }) => (
+    <div className="-mr-2 flex md:hidden">
+        <button onClick={onClick} className="p-2 rounded-md hover:bg-blue-800 transition-colors">
+            {isOpen ? <CloseIcon /> : <MenuIcon />}
+        </button>
+    </div>
+);
+
+// Иконки выносятся отдельно или берутся из библиотек (lucide-react, и т.д.)
+const MenuIcon = () => (
+    <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16m-7 6h7" />
+    </svg>
+);
+
+const CloseIcon = () => (
+    <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+    </svg>
+);
+
+export default Navbar
