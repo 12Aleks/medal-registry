@@ -8,13 +8,13 @@ export class MedalsController {
 
   @Post()
   create(@Body() dto: CreateMedalDto) {
-    return this.medalsService.create(dto)
+    return this.medalsService.create(dto);
   }
 
 
   @Get()
   findOneMedal(@Param('id') id: string) {
-     return this.medalsService.findOne(id)
+     return this.medalsService.findOne(id);
   }
 
   @Get('all')

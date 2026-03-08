@@ -1,4 +1,5 @@
-export interface CreateMedalInput {
+export interface MedalType {
+  id?: string
   name: string
   description?: string
   medalType: string

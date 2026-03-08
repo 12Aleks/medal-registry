@@ -4,7 +4,7 @@ interface pageProps {}
 
 const DashboardPage = ({}) => {
         return (<>
-        <h1>Dashboard</h1>  
+        <h2>This is Dashboard subpage</h2>  
         </>);
 }
 export default DashboardPage;

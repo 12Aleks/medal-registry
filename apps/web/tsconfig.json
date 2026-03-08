@@ -19,7 +19,8 @@
       }
     ],
     "paths": {
-      "@/*": ["./*"]
+      "@/*": ["./*"],
+      "@medal-registry/types": ["../../packages/types/src"],
     }
   },
   "include": [

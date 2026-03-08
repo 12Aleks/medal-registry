@@ -34,7 +34,7 @@ export default function Sidebar({ open, onClose }: Props) {
           <span className="font-semibold">Dashboard</span>
           <button
             onClick={onClose}
-            className="md:hidden"
+            className="md:hidden cursor-pointer"
             aria-label="Close menu"
           >
             ✕
@@ -45,11 +45,11 @@ export default function Sidebar({ open, onClose }: Props) {
           <a href="/" className="block rounded px-3 py-2 hover:bg-gray-800">
             Home
           </a>
-          <a href="#" className="block rounded px-3 py-2 hover:bg-gray-800">
+          <a href="/dashboard/medals" className="block rounded px-3 py-2 hover:bg-gray-800">
             Medals list
           </a>
-          <a href="#" className="block rounded px-3 py-2 hover:bg-gray-800">
-            Service Records
+          <a href="/dashboard/wanted" className="block rounded px-3 py-2 hover:bg-gray-800">
+            Wanted
           </a>
         </nav>
       </aside>

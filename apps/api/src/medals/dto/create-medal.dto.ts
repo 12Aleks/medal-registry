@@ -1,24 +1,24 @@
 // apps/api/src/medals/dto/create-medal.dto.ts
 import { IsString, IsOptional, IsNumber } from 'class-validator'
-import { CreateMedalInput } from '@medal-registry/types'
+import { MedalType } from '@medal-registry/types';
 
 
-export class CreateMedalDto implements CreateMedalInput {
+export class CreateMedalDto implements MedalType {
   @IsString()
   name: string;
 
   @IsOptional()
   @IsString()
-  description?: string
+  description?: string;
 
   @IsString()
-  medalType: string
+  medalType: string;
 
   @IsOptional()
   @IsNumber()
-  establishedYear?: number
+  establishedYear?: number;
 
   @IsOptional()
   @IsNumber()
-  discontinuedYear?: number
+  discontinuedYear?: number;
 }

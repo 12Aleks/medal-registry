@@ -1,7 +1,8 @@
 "use client";
-import Link from "next/link";
-import Image from "next/image";
+
 import { useMemo, useState } from "react";
+import Logo from "./navigation/Logo";
+import Link from "next/link";
 
 interface NavItem {
     name: string;
@@ -22,10 +23,9 @@ const NAVIGATION_CONFIG: NavItem[] = [
 
 const Navbar: React.FC = () => {
     const [isOpen, setIsOpen] = useState(false);
-
-
     /*change to Auth hook  */
     const [isLoggedIn, setIsLoggedIn] = useState(true)
+    
 
     const visibleNavigation = useMemo(() => {
         return NAVIGATION_CONFIG.filter(item => {
@@ -107,16 +107,6 @@ const Navbar: React.FC = () => {
 };
 
 // Вспомогательные компоненты (для чистоты кода)
-const Logo = () => (
-    <div className="flex items-start gap-x-3 cursor-pointer">
-        <Image width={40} height={40} src="/logo.png" alt="Logo" className="object-contain" />
-        <div className="flex flex-col items-start leading-none">
-            <h1 className="text-lg font-bold uppercase tracking-wider">British Military</h1>
-            <span className="text-[10px] opacity-80 tracking-wider">Medal Registry</span>
-        </div>
-    </div>
-);
-
 const MobileMenuButton = ({ isOpen, onClick }: { isOpen: boolean, onClick: () => void }) => (
     <div className="-mr-2 flex md:hidden">
         <button onClick={onClick} className="p-2 rounded-md hover:bg-blue-800 transition-colors">
