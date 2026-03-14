@@ -11,23 +11,23 @@ import { ServiceRecord } from '../service-records/service-record.entity';
 @Entity()
 export class Regiment {
   @PrimaryGeneratedColumn('uuid')
-  id: string;
+  id!: string;
 
   @Column()
-  name: string;
+  name!: string;
 
   @Column({ nullable: true })
-  country: string;
+  country!: string;
 
   @Column({ nullable: true })
-  description: string;
+  description!: string;
 
   @OneToMany(() => ServiceRecord, sr => sr.regiment)
-  serviceRecords: ServiceRecord[];
+  serviceRecords!: ServiceRecord[];
 
   @CreateDateColumn()
-  createdAt: Date;
+  createdAt!: Date;
 
   @UpdateDateColumn()
-  updatedAt: Date;
+  updatedAt!: Date;
 }

@@ -1,7 +1,4 @@
-import MedalList from "../components/MedalList";
 
-
-interface pageProps {}
 
 const WantedPage = ({}) => {
         return (<>

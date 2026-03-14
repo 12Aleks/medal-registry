@@ -2,7 +2,16 @@
   "compilerOptions": {
     "baseUrl": ".",
     "paths": {
-      "@medal-registry/types": ["packages/types/src"]
-    }
-  }
+      "@medal-registry/types": ["packages/types/src/index.ts"]
+    },
+    "rootDir": ".",
+    "outDir": "dist",
+    "strict": true,
+    "moduleResolution": "node",
+    "esModuleInterop": true
+  },
+  "include": [
+    "apps/**/*",
+    "packages/**/*"
+  ]
 }

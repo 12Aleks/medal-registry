@@ -15,7 +15,6 @@ const columnsName: Column<MedalType>[]  = [
 ]
 
 export function MedalsTable({ medals }: Props) {
-    console.log(medals)
     return (
         <ItemsTable data={medals} columns={columnsName} rowKey={(row) =>  row.id ?? row.name}/>
     )

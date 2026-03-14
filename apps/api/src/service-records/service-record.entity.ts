@@ -13,29 +13,29 @@ import { MilitaryConflict } from '../conflicts/conflicts.entity';
 @Entity()
 export class ServiceRecord {
   @PrimaryGeneratedColumn('uuid')
-  id: string;
+  id!: string;
 
   @ManyToOne(() => Soldier, soldier => soldier.serviceRecords, { eager: true })
-  soldier: Soldier;
+  soldier!: Soldier;
 
   @ManyToOne(() => Regiment, regiment => regiment.serviceRecords, { eager: true })
-  regiment: Regiment;
+  regiment!: Regiment;
 
   @ManyToOne(() => MilitaryConflict, conflict => conflict.serviceRecords, {
     eager: true,
     nullable: true,
   })
-  conflict: MilitaryConflict;
+  conflict!: MilitaryConflict;
 
   @Column({ nullable: true })
-  startYear: number;
+  startYear!: number;
 
   @Column({ nullable: true })
-  endYear: number;
+  endYear!: number;
 
   @CreateDateColumn()
-  createdAt: Date;
+  createdAt!: Date;
 
   @UpdateDateColumn()
-  updatedAt: Date;
+  updatedAt!: Date;
 }

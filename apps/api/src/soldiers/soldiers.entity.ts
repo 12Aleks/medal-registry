@@ -12,30 +12,29 @@ import { SoldierAward } from 'src/soldiers-award/solders-award.entity';
 @Entity()
 export class Soldier {
   @PrimaryGeneratedColumn('uuid')
-  id: string;
+  id!: string;
 
   @Column()
-  name: string;
+  name!: string;
 
   @Column()
-  surname: string;
+  surname!: string;
 
   @Column({ nullable: true })
-  rank: string;
+  rank!: string;
 
   @Column({ nullable: true })
-  serviceNumber: string;
+  serviceNumber!: string;
 
   @OneToMany(() => SoldierAward, sa => sa.soldier)
-  awards: SoldierAward[];
-
+  awards!: SoldierAward[];
 
   @OneToMany(() => ServiceRecord, sr => sr.soldier)
-  serviceRecords: ServiceRecord[];
+  serviceRecords!: ServiceRecord[];
 
   @CreateDateColumn()
-  createdAt: Date;
+  createdAt!: Date;
 
   @UpdateDateColumn()
-  updatedAt: Date;
+  updatedAt!: Date;
 }

@@ -1,22 +1,27 @@
-import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateColumn, OneToMany } from 'typeorm';
+import {
+  Entity,
+  PrimaryGeneratedColumn,
+  Column,
+  CreateDateColumn,
+  UpdateDateColumn,
+  OneToMany,
+} from 'typeorm';
 
 import { SoldierAward } from '../soldiers-award/solders-award.entity';
 
-
 @Entity()
-
 export class Medal {
   @PrimaryGeneratedColumn('uuid')
-  id: string
+  id?: string;
 
   @Column({ unique: true })
-  name: string;
+  name!: string;
 
   @Column({ nullable: true })
   description?: string;
 
   @Column()
-  medalType: string
+  medalType!: string;
 
   @Column({ nullable: true })
   establishedYear?: number;
@@ -25,11 +30,11 @@ export class Medal {
   discontinuedYear?: number;
 
   @OneToMany(() => SoldierAward, sa => sa.medal)
-  soldierAwards: SoldierAward[];
+  soldierAwards!: SoldierAward[];
 
   @CreateDateColumn()
-  createdAt: Date
+  createdAt!: Date;
 
   @UpdateDateColumn()
-  updatedAt: Date
+  updatedAt!: Date;
 }

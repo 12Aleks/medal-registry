@@ -28,8 +28,11 @@ import { ColectionItemModule } from './colections-item/colections-item.module';
         password: configService.get<string>('DB_PASSWORD'),
         database: configService.get<string>('DB_NAME'),
         autoLoadEntities: true,
-        synchronize: true,                     // для dev
+        synchronize: true,
         logging: true,
+
+        retryAttempts: 10,
+        retryDelay: 3000,
       }),
     }),
     SoldiersModule,
@@ -46,4 +49,4 @@ import { ColectionItemModule } from './colections-item/colections-item.module';
   controllers: [AppController],
   providers: [AppService],
 })
-export class AppModule { }
+export class AppModule {}

@@ -8,13 +8,13 @@ import { Soldier } from "../soldiers/soldiers.entity";
 @Entity()
 export class SoldierAward {
   @PrimaryGeneratedColumn('uuid')
-  id: string;
+  id!: string;
 
   @ManyToOne(() => Soldier, s => s.awards, { eager: true })
-  soldier: Soldier;
+  soldier!: Soldier;
 
   @ManyToOne(() => Medal, m => m.soldierAwards, { eager: true })
-  medal: Medal;
+  medal!: Medal;
 
   @ManyToOne(() => MilitaryConflict, { eager: true, nullable: true })
   conflict?: MilitaryConflict;
@@ -23,11 +23,11 @@ export class SoldierAward {
   yearAwarded?: number;
 
   @OneToMany(() => CollectionItem, item => item.soldierAward)
-  collectionItems: CollectionItem[];
+  collectionItems!: CollectionItem[];
 
   @CreateDateColumn()
-  createdAt: Date;
+  createdAt!: Date;
 
   @UpdateDateColumn()
-  updatedAt: Date;
+  updatedAt!: Date;
 }
