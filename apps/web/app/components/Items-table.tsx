@@ -28,9 +28,9 @@ export default function ItemsTable<T>  ({data, columns, rowKey} : TableProps<T>)
 
                 <tbody>
                 {data?.map((row) => (
-                    <tr key={rowKey(row)} className="bg-neutral-primary border-b border-default text-background-blue text-sm">
+                    <tr key={rowKey(row)} className="bg-neutral-primary border-b border-default text-background-blue ">
                         {columns?.map((col) => (
-                            <td key={String(col.key)} className="px-6 py-4">
+                            <td key={String(col.key)} className="px-6 py-4 tracking-wide">
                                 {col.render
                                     ? col.render(row[col.key], row)
                                     : String(row[col.key] ?? "")}
@@ -41,6 +41,6 @@ export default function ItemsTable<T>  ({data, columns, rowKey} : TableProps<T>)
                 </tbody>
             </table>
         </div>
-            );
-            };
-
+    );
+}
+           

@@ -11,7 +11,6 @@ export class MedalsController {
     return this.medalsService.create(dto);
   }
 
-
   @Get()
   findOneMedal(@Param('id') id: string) {
      return this.medalsService.findOne(id);
@@ -19,6 +18,6 @@ export class MedalsController {
 
   @Get('all')
   findAllMedals() {
-    return this.medalsService.findAll()
+    return this.medalsService.findAll();
   }
 }

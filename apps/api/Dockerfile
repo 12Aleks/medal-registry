@@ -15,9 +15,9 @@ RUN npm install
 
 # 4. Build NestJS
 # This runs the build script inside apps/api
-RUN npm run build -w apps/api
+# RUN npm run build -w apps/api
 
 EXPOSE 5000
 
 # NestJS prod build usually lives in apps/api/dist/main.js
-CMD ["node", "apps/api/dist/main.js"]
+CMD ["npm", "run", "start:dev", "-w", "apps/api"]

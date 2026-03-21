@@ -7,7 +7,7 @@ import {revalidatePath} from "next/cache";
 
 export async function createMedal(data: MedalType):Promise<{ success: boolean }>{
     try{
-     await api.post("/medals/create", data);
+     await api.post("/medals", data);
      revalidatePath("/dashboard/medals")
      return { success: true }
     }catch(error){

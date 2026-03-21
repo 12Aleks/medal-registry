@@ -16,6 +16,9 @@ import {
   FormMessage,
 } from "@/components/ui/form"
 
+import { createMedal } from "@/shared/api/medalActions"
+import { MedalType } from "@medal-registry/types"
+
 type MedalFormValues = z.infer<typeof medalSchema>
 
 export function CreateMedalForm({ onSuccess }: { onSuccess: () => void }) {
@@ -25,15 +28,19 @@ export function CreateMedalForm({ onSuccess }: { onSuccess: () => void }) {
       name: "",
       medalType: "",
       description: "",
-      establishedYear: undefined as unknown as number,
-      discontinuedYear: undefined as unknown as number,
+      establishedYear: undefined,
+      discontinuedYear: undefined,
     },
   })
 
   const onSubmit: SubmitHandler<MedalFormValues> = async (values) => {
     console.log("Saving data:", values)
-    await new Promise((r) => setTimeout(r, 1000)) // Имитация API
-    onSuccess()
+    const result = await createMedal(values as MedalType)
+    if (result.success) {
+      onSuccess()
+    } else {
+      console.error("Failed to create medal")
+    }
   }
 
   return (
@@ -79,7 +86,7 @@ export function CreateMedalForm({ onSuccess }: { onSuccess: () => void }) {
             render={({ field }) => (
               <FormItem>
                 <FormLabel>Год учреждения</FormLabel>
-                <FormControl><Input type="number" {...field} /></FormControl>
+                <FormControl><Input type="number" {...field} onChange={e => field.onChange(e.target.valueAsNumber)} /></FormControl>
                 <FormMessage />
               </FormItem>
             )}
@@ -90,7 +97,7 @@ export function CreateMedalForm({ onSuccess }: { onSuccess: () => void }) {
             render={({ field }) => (
               <FormItem>
                 <FormLabel>Год отмены</FormLabel>
-                <FormControl><Input type="number" {...field} /></FormControl>
+                <FormControl><Input type="number" {...field} onChange={e => field.onChange(e.target.valueAsNumber)} /></FormControl>
                 <FormMessage />
               </FormItem>
             )}

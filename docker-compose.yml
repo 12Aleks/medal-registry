@@ -5,20 +5,39 @@ services:
       POSTGRES_USER: user
       POSTGRES_PASSWORD: password
       POSTGRES_DB: medal_db
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
     ports:
       - "5432:5432"
   api:
     build:
       context: .
       dockerfile: ./apps/api/Dockerfile
+    volumes:
+      - .:/app
+      - /app/node_modules
+      - /app/apps/api/node_modules
     environment:
-      DB_HOST: db
-      DB_PORT: 5432
-      DB_USER: user
-      DB_PASSWORD: password
-      DB_NAME: medal_db
+      - DB_HOST=db
+      - DB_PORT=5432
+      - DB_USER=user
+      - DB_PASSWORD=password
+      - DB_NAME=medal_db
+      - PORT=5000
+      - WATCHPACK_POLLING=true
+      - CHOKIDAR_USEPOLLING=true
     depends_on:
       - db
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
     ports:
       - "5000:5000"
 
@@ -26,9 +45,26 @@ services:
     build:
       context: .
       dockerfile: ./apps/web/Dockerfile
+    volumes:
+      - .:/app:delegated
+      - /app/node_modules
+      - /app/apps/web/node_modules
     ports:
       - "3000:3000"
     environment:
-      - NEXT_PUBLIC_API_BASE_URL=http://api:5000
+      - API_URL=http://api:5000
+      - NEXT_PUBLIC_API_BASE_URL=http://localhost:5000
+      - WATCHPACK_POLLING=true
+    command: npm run dev -w apps/web -- -H 0.0.0.0 --webpack
+    stdin_open: true
+    tty: true
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
     depends_on:
       - api
+
+volumes:
+  postgres_data:

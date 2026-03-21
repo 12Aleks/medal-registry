@@ -16,7 +16,7 @@ RUN npm install
 
 # 4. Build the app
 # Note: Next.js build usually happens for the specific workspace
-RUN npm run build -w apps/web
+# RUN npm run build -w apps/web
 
 EXPOSE 3000
-CMD ["npm", "start", "-w", "apps/web"]
+CMD ["npm", "run", "dev", "-w", "apps/web"]
