@@ -11,7 +11,7 @@ export default function SidebarLayout({ children }: PropsComponent) {
   const { open, openSidebar, closeSidebar } = useSidebar();
   const pathname = usePathname();
 
-  console.log(pathname)
+
 
   const title = pathname.split('/').pop() || 'Home'
 
@@ -32,7 +32,7 @@ export default function SidebarLayout({ children }: PropsComponent) {
           </button>
           <h1 className="text-2xl font-semibold capitalize">{title}</h1>
         </div>
-        <main className="mx-auto px-4 py-6">{children}</main>
+        <main className="mx-auto px-4 py-6 h-full">{children}</main>
       </div>
     </div>
   );

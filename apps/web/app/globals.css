@@ -9,6 +9,7 @@
   /*Custome colors*/
   --color-blue: #212547;
   --color-accent: #c9a227;
+
   --radius: 0.625rem;
   --background: oklch(1 0 0);
   --foreground: oklch(0.145 0 0);

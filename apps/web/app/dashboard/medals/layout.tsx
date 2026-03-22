@@ -6,7 +6,7 @@ interface MedalsLayoutProps {
 
 export default function MedalsLayout({ children, modal }: MedalsLayoutProps) {
   return (
-    <div className="relative w-full">
+    <div className="relative w-full h-full">
       {children}
       {modal}
     </div>
