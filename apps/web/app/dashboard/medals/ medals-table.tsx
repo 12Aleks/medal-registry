@@ -1,7 +1,7 @@
 "use client"
 
 import {MedalType} from "@medal-registry/types";
-import ItemsTable, {Column} from "@/app/components/Items-table";
+import ItemsTable, {Column} from "@/app/components/table/Items-table";
 
 type Props = {
     medals: MedalType[]

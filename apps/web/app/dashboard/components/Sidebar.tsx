@@ -13,7 +13,7 @@ export default function Sidebar({ open, onClose }: Props) {
         aria-hidden="true"
         onClick={onClose}
         className={`
-          fixed inset-0 z-30 bg-black/40 transition-opacity md:hidden
+          fixed inset-0 z-30 bg-background-blue transition-opacity md:hidden
           ${open ? "opacity-100" : "pointer-events-none opacity-0"}
         `}
       />
@@ -24,7 +24,7 @@ export default function Sidebar({ open, onClose }: Props) {
         aria-modal="true"
         aria-label="Main navigation"
         className={`
-          fixed inset-y-0 left-0 z-40 w-64 bg-gray-900 text-white
+          fixed inset-y-0 left-0 z-40 w-64 bg-background-blue text-white
           transition-transform duration-300 ease-in-out
           ${open ? "translate-x-0" : "-translate-x-full"}
           md:translate-x-0 md:static

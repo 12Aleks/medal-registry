@@ -1,0 +1,13 @@
+.table_wrapper {
+  tbody {
+    td {
+      &:nth-child(1) {
+        font-weight: bold;
+      }
+
+      &[data-css='true'] {
+        text-align: center;
+      }
+    }
+  }
+}
