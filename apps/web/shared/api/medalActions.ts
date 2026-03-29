@@ -27,3 +27,14 @@ export async function getMedals(): Promise<MedalType[]> {
         throw error;
     }
 }
+
+export async function getOneMedal(id: string):Promise<MedalType>{
+    try{
+        const api = createApi();
+        const {data} = await api.get<MedalType>(`/medals/${id}`);
+        return data;
+    }catch (error){
+        console.error("Error getting medal:", error);
+        throw error;
+    }
+}

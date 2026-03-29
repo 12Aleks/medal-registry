@@ -51,8 +51,8 @@ export function CreateMedalForm({ onSuccess }: { onSuccess: () => void }) {
           name="name"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Название</FormLabel>
-              <FormControl><Input placeholder="Орден..." {...field} /></FormControl>
+              <FormLabel>Medal name</FormLabel>
+              <FormControl><Input placeholder="Medal..." {...field} /></FormControl>
               <FormMessage />
             </FormItem>
           )}
@@ -62,8 +62,8 @@ export function CreateMedalForm({ onSuccess }: { onSuccess: () => void }) {
           name="medalType"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Тип</FormLabel>
-              <FormControl><Input placeholder="Военная" {...field} /></FormControl>
+              <FormLabel>Medal type</FormLabel>
+              <FormControl><Input placeholder="Campaign medal" {...field} /></FormControl>
               <FormMessage />
             </FormItem>
           )}
@@ -73,7 +73,7 @@ export function CreateMedalForm({ onSuccess }: { onSuccess: () => void }) {
           name="description"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Описание</FormLabel>
+              <FormLabel>Description</FormLabel>
               <FormControl><Textarea {...field} /></FormControl>
               <FormMessage />
             </FormItem>
@@ -85,7 +85,7 @@ export function CreateMedalForm({ onSuccess }: { onSuccess: () => void }) {
             name="establishedYear"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Год учреждения</FormLabel>
+                <FormLabel>Year established</FormLabel>
                 <FormControl><Input type="number" {...field} onChange={e => field.onChange(e.target.valueAsNumber)} /></FormControl>
                 <FormMessage />
               </FormItem>
@@ -96,15 +96,15 @@ export function CreateMedalForm({ onSuccess }: { onSuccess: () => void }) {
             name="discontinuedYear"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Год отмены</FormLabel>
+                <FormLabel>Year abolished</FormLabel>
                 <FormControl><Input type="number" {...field} onChange={e => field.onChange(e.target.valueAsNumber)} /></FormControl>
                 <FormMessage />
               </FormItem>
             )}
           />
         </div>
-        <Button type="submit" className="w-full" disabled={form.formState.isSubmitting}>
-          {form.formState.isSubmitting ? "Сохранение..." : "Добавить"}
+        <Button type="submit" variant="customBlue" className="w-full" disabled={form.formState.isSubmitting}>
+          {form.formState.isSubmitting ? "Saving..." : "Add medal"}
         </Button>
       </form>
     </Form>
