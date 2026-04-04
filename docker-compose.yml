@@ -1,45 +1,27 @@
+version: "3.9"
+
 services:
-  db:
-    image: postgres:15-alpine
-    environment:
-      POSTGRES_USER: user
-      POSTGRES_PASSWORD: password
-      POSTGRES_DB: medal_db
-    volumes:
-      - postgres_data:/var/lib/postgresql/data
-    logging:
-      driver: "json-file"
-      options:
-        max-size: "10m"
-        max-file: "3"
-    ports:
-      - "5432:5432"
   api:
     build:
       context: .
       dockerfile: ./apps/api/Dockerfile
+    env_file:
+      - ./apps/api/.env
     volumes:
       - .:/app
       - /app/node_modules
       - /app/apps/api/node_modules
     environment:
-      - DB_HOST=db
-      - DB_PORT=5432
-      - DB_USER=user
-      - DB_PASSWORD=password
-      - DB_NAME=medal_db
-      - PORT=5000
+      - DB_HOST=host.docker.internal
       - WATCHPACK_POLLING=true
       - CHOKIDAR_USEPOLLING=true
-    depends_on:
-      - db
+    ports:
+      - "5000:5000"
     logging:
       driver: "json-file"
       options:
         max-size: "10m"
         max-file: "3"
-    ports:
-      - "5000:5000"
 
   web:
     build:
@@ -58,13 +40,10 @@ services:
     command: npm run dev -w apps/web -- -H 0.0.0.0 --webpack
     stdin_open: true
     tty: true
+    depends_on:
+      - api
     logging:
       driver: "json-file"
       options:
         max-size: "10m"
         max-file: "3"
-    depends_on:
-      - api
-
-volumes:
-  postgres_data:
