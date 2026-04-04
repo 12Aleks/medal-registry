@@ -11,13 +11,14 @@ export class MedalsController {
     return this.medalsService.create(dto);
   }
 
+  @Get('all')
+  findAllMedals() {
+    return this.medalsService.findAll();
+  }
+
   @Get(':id')
   findOneMedal(@Param('id') id: string) {
     return this.medalsService.findOne(id);
   }
 
-  @Get('all')
-  findAllMedals() {
-    return this.medalsService.findAll();
-  }
 }
