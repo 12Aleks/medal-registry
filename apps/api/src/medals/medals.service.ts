@@ -1,23 +1,19 @@
-import { Injectable, NotFoundException } from '@nestjs/common'
-import { InjectRepository } from '@nestjs/typeorm'
-import { Repository } from 'typeorm'
-import { Medal } from './medals.entity'
-import { MilitaryConflict } from '../conflicts/conflicts.entity'
-import { CreateMedalDto } from './dto/create-medal.dto'
+import { Injectable, NotFoundException } from '@nestjs/common';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
+import { Medal } from './medals.entity';
+import { CreateMedalDto } from './dto/create-medal.dto';
 
 @Injectable()
 export class MedalsService {
-    constructor(
-        @InjectRepository(Medal)
-        private medalsRepo: Repository<Medal>
-    ) { }
+  constructor(@InjectRepository(Medal) private medalsRepo: Repository<Medal>) {}
 
-    async create(dto: CreateMedalDto) {
- 
+  async create(dto: CreateMedalDto) {
     const medal = this.medalsRepo.create({
       name: dto?.name,
       description: dto?.description,
       medalType: dto?.medalType,
+      slug: dto?.slug,
       establishedYear: dto?.establishedYear,
       discontinuedYear: dto?.discontinuedYear,
     });

@@ -1,10 +1,11 @@
 export interface MedalType {
-  id?: string
-  name: string
-  description?: string
+  id?: string;
+  name: string;
+  description?: string;
   medalType: string
-  establishedYear?: number
-  discontinuedYear?: number
+  slug: string;
+  establishedYear?: number;
+  discontinuedYear?: number;
 }
 
 

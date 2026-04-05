@@ -23,13 +23,16 @@ export class Medal {
   @Column()
   medalType!: string;
 
+  @Column({ default: '' })
+  slug!: string;
+
   @Column({ nullable: true })
   establishedYear?: number;
 
   @Column({ nullable: true })
   discontinuedYear?: number;
 
-  @OneToMany(() => SoldierAward, sa => sa.medal)
+  @OneToMany(() => SoldierAward, (sa) => sa.medal)
   soldierAwards!: SoldierAward[];
 
   @CreateDateColumn()
