@@ -1,4 +1,4 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import {ConflictException, Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Medal } from './medals.entity';
@@ -8,7 +8,15 @@ import { CreateMedalDto } from './dto/create-medal.dto';
 export class MedalsService {
   constructor(@InjectRepository(Medal) private medalsRepo: Repository<Medal>) {}
 
+  async checkMedal(slug: string) {
+    const existingMedal = await this.medalsRepo.findOne({ where: { slug } });
+    if (existingMedal) {
+      throw new ConflictException('Medal with this name already exists');
+    }
+  }
+
   async create(dto: CreateMedalDto) {
+    await this.checkMedal(dto.slug);
     const medal = this.medalsRepo.create({
       name: dto?.name,
       description: dto?.description,
@@ -25,9 +33,20 @@ export class MedalsService {
     return this.medalsRepo.find();
   }
 
-  async findOne(id: string) {
-    const medal = await this.medalsRepo.findOne({ where: { id } });
+  async findOne(slug: string) {
+    const medal = await this.medalsRepo.findOne({ where: { slug } });
     if (!medal) throw new NotFoundException('Medal not found');
     return medal;
+  }
+
+  async deleteOne(slug: string) {
+    const medal = await this.medalsRepo.delete({ slug });
+    if (medal.affected === 0) {
+      throw new NotFoundException(`Medal ${slug} not found`);
+    }
+    return {
+      statusCode: 200,
+      message: `Medal ${slug} deleted successfully.`,
+    };
   }
 }

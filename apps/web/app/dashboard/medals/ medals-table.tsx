@@ -26,7 +26,7 @@ export function MedalsTable({ medals }: Props) {
             rowRender={(row, idx, rowContent) => (
                 <tr
                     key={row.id ?? row.name}
-                    onClick={() => router.push(`/medals/${row.id}`)}
+                    onClick={() => router.push(`/dashboard/medals/${row.slug}`)}
                     className="bg-neutral-primary border-b border-default text-background-blue duration-300 hover:bg-gray-300/20 cursor-pointer"
                 >
                     {rowContent}

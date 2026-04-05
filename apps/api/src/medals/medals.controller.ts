@@ -1,4 +1,4 @@
-import { Controller, Post, Body, Param, Get } from '@nestjs/common';
+import { Controller, Post, Body, Param, Get, Delete } from '@nestjs/common';
 import { MedalsService } from './medals.service';
 import { CreateMedalDto } from './dto/create-medal.dto';
 
@@ -16,8 +16,14 @@ export class MedalsController {
     return this.medalsService.findAll();
   }
 
-  @Get(':id')
-  findOneMedal(@Param('id') id: string) {
-    return this.medalsService.findOne(id);
+  @Get(':slug')
+  findOneMedal(@Param('slug') slug: string) {
+    return this.medalsService.findOne(slug);
+  }
+
+  @Delete(':slug')
+  deleteMedal(@Param('slug') slug: string) {
+    console.log(slug);
+    return this.medalsService.deleteOne(slug);
   }
 }

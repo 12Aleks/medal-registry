@@ -13,7 +13,7 @@ export default function SidebarLayout({ children }: PropsComponent) {
 
 
 
-  const title = pathname.split('/').pop() || 'Home'
+  const title = pathname.split('/').pop()?.replaceAll("-", " ") || 'Home'
 
   return (
     <div className="flex min-h-screen w-full">
@@ -30,7 +30,7 @@ export default function SidebarLayout({ children }: PropsComponent) {
           >
             ☰
           </button>
-          <h1 className="text-2xl font-semibold capitalize">{title}</h1>
+          <h1 className="text-2xl font-semibold first-letter:uppercase">{title}</h1>
         </div>
         <main className="mx-auto px-4 py-6 h-full">{children}</main>
       </div>

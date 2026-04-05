@@ -3,12 +3,17 @@
 import {createApi} from "@/shared/api/initialAxios";
 import {MedalType} from "@medal-registry/types";
 import {revalidatePath} from "next/cache";
+import {slugify} from "@/shared/utils/slugify";
+
 
 
 export async function createMedal(data: MedalType):Promise<{ success: boolean }>{
     try{
         const api = createApi();
-     await api.post("/medals", data);
+     await api.post("/medals", {
+         ...data,
+         slug: slugify(data?.name),
+     });
      revalidatePath("/dashboard/medals")
      return { success: true }
     }catch(error){
@@ -28,10 +33,10 @@ export async function getMedals(): Promise<MedalType[]> {
     }
 }
 
-export async function getOneMedal(id: string):Promise<MedalType>{
+export async function getOneMedal(slug: string):Promise<MedalType>{
     try{
         const api = createApi();
-        const {data} = await api.get<MedalType>(`/medals/${id}`);
+        const {data} = await api.get<MedalType>(`/medals/${slug}`);
         return data;
     }catch (error){
         console.error("Error getting medal:", error);

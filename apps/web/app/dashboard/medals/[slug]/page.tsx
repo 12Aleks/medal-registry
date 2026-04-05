@@ -4,12 +4,12 @@ import {getOneMedal} from "@/shared/api/medalActions";
 import Loader from "@/app/components/loader/Loader";
 
 interface MedalProps{
-    params: Promise<{id: string}>
+    params: Promise<{slug: string}>
 }
 
 export async function generateMetadata({ params }: MedalProps):Promise<Metadata>{
-    const {id} = await params;
-    const medal: MedalType = await getOneMedal(id);
+    const {slug} = await params;
+    const medal: MedalType = await getOneMedal(slug);
     return {
         title: medal.name,
         description: medal.description,
@@ -17,8 +17,8 @@ export async function generateMetadata({ params }: MedalProps):Promise<Metadata>
 }
 
 const MedalPage = async ({params}: MedalProps) => {
-    const {id} = await params;
-    const medal: MedalType = await getOneMedal(id);
+    const {slug} = await params;
+    const medal: MedalType = await getOneMedal(slug);
 
     if (!medal) return <div className="flex items-center justify-center h-full"><Loader size={0.5}/></div>
 
