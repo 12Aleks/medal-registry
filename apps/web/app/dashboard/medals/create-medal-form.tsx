@@ -28,13 +28,15 @@ export function CreateMedalForm({ onSuccess }: { onSuccess: () => void }) {
       name: "",
       medalType: "",
       description: "",
+      images: [],
       establishedYear: undefined,
       discontinuedYear: undefined,
     },
   })
 
   const onSubmit: SubmitHandler<MedalFormValues> = async (values) => {
-    console.log("Saving data:", values)
+    console.log("Saving data:", values);
+
     const result = await createMedal(values as MedalType)
     if (result.success) {
       onSuccess()
@@ -79,6 +81,29 @@ export function CreateMedalForm({ onSuccess }: { onSuccess: () => void }) {
             </FormItem>
           )}
         />
+          <FormField<MedalFormValues, "images">
+              control={form.control}
+              name="images"
+              render={({ field }) => (
+                  <FormItem>
+                      <FormLabel>Photos</FormLabel>
+                      <FormControl>
+                          <input
+                              type="file"
+                              multiple
+                              accept="image/*"
+                              onChange={(e) => {
+                                  const files = e.target.files
+                                  if (files) {
+                                      field.onChange(Array.from(files))
+                                  }
+                              }}
+                          />
+                      </FormControl>
+                      <FormMessage />
+                  </FormItem>
+              )}
+          />
         <div className="grid grid-cols-2 gap-4">
           <FormField<MedalFormValues, "establishedYear">
             control={form.control}

@@ -26,6 +26,12 @@ export default function ItemsTable<T>  ({data, columns, rowKey, rowRender} : Tab
                     {columns.map((col) => (
                         <th key={String(col.key)} className="px-6 py-3 font-medium text-base tracking-wide">{col.header}</th>
                     ))}
+                    <th>
+                        Edit
+                    </th>
+                    <th>
+                        Delete
+                    </th>
                 </tr>
                 </thead>
 
@@ -37,6 +43,7 @@ export default function ItemsTable<T>  ({data, columns, rowKey, rowRender} : Tab
                         >
                             {col.render ? col.render(row[col.key], row) : String(row[col.key] ?? "")}
                         </td>
+
                     ));
 
                     return rowRender ? rowRender(row, idx, rowContent) : (

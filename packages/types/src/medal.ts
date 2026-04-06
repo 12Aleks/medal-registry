@@ -4,6 +4,7 @@ export interface MedalType {
   description?: string;
   medalType: string
   slug: string;
+  images?: string[];
   establishedYear?: number;
   discontinuedYear?: number;
 }

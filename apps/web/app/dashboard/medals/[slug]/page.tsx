@@ -24,7 +24,8 @@ const MedalPage = async ({params}: MedalProps) => {
 
     return (
         <div>
-          <h1>{medal.name}</h1>
+          <h2 className="mb-3 text-md font-semibold">Type: {medal.medalType}</h2>
+          <p>Description: {medal.description}</p>
         </div>
     );
 };

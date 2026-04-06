@@ -5,6 +5,7 @@ export const medalSchema = z.object({
   name: z.string().min(1, "Please enter a title"),
   medalType: z.string().min(1, "Please enter a type"),
   description: z.string().optional(),
+  images: z.array(z.instanceof(File)).optional(),
   establishedYear: z.number().int().optional(),
   discontinuedYear: z.number().int().optional(),
 });

@@ -26,6 +26,9 @@ export class Medal {
   @Column({ default: '' })
   slug!: string;
 
+  @Column('text', { array: true, nullable: true })
+  images?: string[];
+
   @Column({ nullable: true })
   establishedYear?: number;
 

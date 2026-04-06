@@ -1,4 +1,11 @@
-import { IsString, IsOptional, IsNumber } from 'class-validator';
+import {
+  IsString,
+  IsOptional,
+  IsNumber,
+  IsArray,
+  ArrayNotEmpty,
+  ArrayUnique,
+} from 'class-validator';
 import { MedalType } from '@medal-registry/types';
 
 export class CreateMedalDto implements MedalType {
@@ -14,6 +21,13 @@ export class CreateMedalDto implements MedalType {
 
   @IsString()
   slug!: string;
+
+  @IsOptional()
+  @IsArray()
+  @ArrayNotEmpty()
+  @ArrayUnique()
+  @IsString({ each: true })
+  images?: string[];
 
   @IsOptional()
   @IsNumber()
