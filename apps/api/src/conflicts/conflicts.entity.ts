@@ -17,6 +17,9 @@ export class MilitaryConflict {
   @Column()
   name!: string;
 
+  @Column()
+  description!: string;
+
   @Column({ nullable: true })
   startYear?: number;
 
