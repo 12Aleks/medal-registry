@@ -28,6 +28,7 @@ export default async function MedalsListPage() {
                         <Loader size={0.5}/>
                     </div> :
                     <MedalsTable medals={medalsList}/>
+
             }
         </div>
     )
