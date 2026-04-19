@@ -12,7 +12,7 @@ import { SoldierAward } from 'src/soldiers-award/solders-award.entity';
 @Entity()
 export class MilitaryConflict {
   @PrimaryGeneratedColumn('uuid')
-  id!: string;
+  id?: string;
 
   @Column()
   name!: string;

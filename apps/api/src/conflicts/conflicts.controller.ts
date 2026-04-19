@@ -11,7 +11,7 @@ export class ConflictsController {
     return this.conflictsService.findAll();
   }
 
-  @Post()
+  @Post('all')
   createOne(@Body() dto: MilitaryConflictDto) {
     return this.conflictsService.create(dto);
   }
