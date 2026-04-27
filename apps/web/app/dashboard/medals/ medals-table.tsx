@@ -1,8 +1,6 @@
 "use client"
-
 import {MedalType} from "@medal-registry/types";
 import ItemsTable, {Column} from "@/app/components/table/Items-table";
-import Link from "next/link";
 import {useRouter} from "next/navigation";
 import {SquarePen, SquareX} from "lucide-react";
 import {deleteOneMedal} from "@/shared/api/medalActions";

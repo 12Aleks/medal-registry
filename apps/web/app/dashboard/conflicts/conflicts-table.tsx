@@ -1,8 +1,8 @@
+'use client';
 import React from 'react';
 import ItemsTable, {Column} from "@/app/components/table/Items-table";
 import {ConflictType} from "@medal-registry/types";
 import {SquarePen, SquareX} from "lucide-react";
-import {deleteOneMedal} from "@/shared/api/medalActions";
 import {router} from "next/client";
 
 type ConflictTypeProps = {
@@ -41,7 +41,6 @@ const ConflictsTable = ({conflicts}: ConflictTypeProps) => {
                             size={30}
                             onClick={(e) => {
                                 e.stopPropagation();
-                                deleteOneMedal(row.slug)
                             }}
                             className='text-red-900 hover:text-red-950 duration-300 relative z-10'/>
                     </td>

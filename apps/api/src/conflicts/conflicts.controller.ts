@@ -6,12 +6,12 @@ import { MilitaryConflictDto } from './dto/create-conflict.dto';
 export class ConflictsController {
   constructor(private readonly conflictsService: ConflictsService) {}
 
-  @Get()
+  @Get('all')
   findAllConflicts() {
     return this.conflictsService.findAll();
   }
 
-  @Post('all')
+  @Post()
   createOne(@Body() dto: MilitaryConflictDto) {
     return this.conflictsService.create(dto);
   }
