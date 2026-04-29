@@ -8,6 +8,7 @@ import {
 } from 'typeorm';
 import { ServiceRecord } from '../service-records/service-record.entity';
 import { SoldierAward } from 'src/soldiers-award/solders-award.entity';
+import { IsString } from 'class-validator';
 
 @Entity()
 export class Soldier {
@@ -23,13 +24,16 @@ export class Soldier {
   @Column({ nullable: true })
   rank!: string;
 
+  @Column()
+  slug!: string;
+
   @Column({ nullable: true })
   serviceNumber!: string;
 
-  @OneToMany(() => SoldierAward, sa => sa.soldier)
+  @OneToMany(() => SoldierAward, (sa) => sa.soldier)
   awards!: SoldierAward[];
 
-  @OneToMany(() => ServiceRecord, sr => sr.soldier)
+  @OneToMany(() => ServiceRecord, (sr) => sr.soldier)
   serviceRecords!: ServiceRecord[];
 
   @CreateDateColumn()

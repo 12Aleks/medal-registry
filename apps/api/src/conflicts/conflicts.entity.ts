@@ -12,7 +12,7 @@ import { SoldierAward } from 'src/soldiers-award/solders-award.entity';
 @Entity()
 export class MilitaryConflict {
   @PrimaryGeneratedColumn('uuid')
-  id!: string;
+  id?: string;
 
   @Column()
   name!: string;
@@ -20,16 +20,19 @@ export class MilitaryConflict {
   @Column()
   description!: string;
 
+  @Column()
+  slug!: string;
+
   @Column({ nullable: true })
   startYear?: number;
 
   @Column({ nullable: true })
   endYear?: number;
 
-  @OneToMany(() => SoldierAward, sa => sa.conflict)
+  @OneToMany(() => SoldierAward, (sa) => sa.conflict)
   soldierAwards!: SoldierAward[];
 
-  @OneToMany(() => ServiceRecord, sr => sr.conflict)
+  @OneToMany(() => ServiceRecord, (sr) => sr.conflict)
   serviceRecords!: ServiceRecord[];
 
   @CreateDateColumn()

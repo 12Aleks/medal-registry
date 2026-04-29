@@ -17,4 +17,8 @@ export class MilitaryConflictDto implements ConflictType {
   @IsNumber()
   @IsOptional()
   endYear?: number;
+
+  @IsString()
+  @IsNotEmpty()
+  slug!: string;
 }

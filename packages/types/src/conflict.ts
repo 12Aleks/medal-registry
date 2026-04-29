@@ -4,6 +4,7 @@ export interface ConflictType {
     description: string;
     startYear?: number;
     endYear?: number;
+    slug: string;
     createdAt?: string;
     updatedAt?: string;
 }

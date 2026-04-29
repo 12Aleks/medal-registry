@@ -25,7 +25,7 @@ export async function createMedal(data: MedalType):Promise<{ success: boolean }>
 
 export async function getMedals(): Promise<MedalType[]> {
     try{
-        const api = createApi()
+        const api = createApi();
         const {data} = await api.get<MedalType[]>("/medals/all");
         return data
     }catch(error){
