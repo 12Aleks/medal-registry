@@ -1,7 +1,7 @@
 import {z} from "zod";
 
 
-export const MilitarySchema = z.object({
+export const ConflictSchema = z.object({
     id: z.string().optional(),
     name: z.string(),
     description: z.string(),
