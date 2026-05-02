@@ -18,13 +18,11 @@ const CreateConflictForm = () => {
             description: "",
             startYear: 0,
             endYear: 0,
-            createdAt: undefined,
-            updatedAt: undefined,
         }
     });
 
-    const onSubmit = (conflict ) => {
-        console.log(conflict);
+    const onSubmit = (conflict: Omit<ConflictType, "id" | "createdAt" | 'updatedAt' | 'slug'> ) => {
+       console.log(conflict);
     }
 
     return (
@@ -52,6 +50,30 @@ const CreateConflictForm = () => {
                         </FormItem>
                     )}
                 />
+                <div className="grid grid-cols-2 gap-4">
+                <FormField <ConflictFormValues, "startYear">
+                    control={form.control}
+                    name="startYear"
+                    render={({field}) => (
+                        <FormItem>
+                            <FormLabel>Start year</FormLabel>
+                            <FormControl><Input type="number" placeholder="Start year..." {...field} /></FormControl>
+                            <FormMessage/>
+                        </FormItem>
+                    )}
+                />
+                    <FormField <ConflictFormValues, "endYear">
+                        control={form.control}
+                        name="endYear"
+                        render={({field}) => (
+                            <FormItem>
+                                <FormLabel>End year</FormLabel>
+                                <FormControl><Input type="number" placeholder="End year..." {...field} /></FormControl>
+                                <FormMessage/>
+                            </FormItem>
+                        )}
+                    />
+                </div>
                 <Button type="submit" variant="customBlue" className="w-full" disabled={form.formState.isSubmitting}>
                     {form.formState.isSubmitting ? "Saving..." : "Add medal"}
                 </Button>
