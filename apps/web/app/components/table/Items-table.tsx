@@ -2,6 +2,7 @@
 import {ReactNode, Key} from "react";
 import styles from './table.module.scss';
 import {clsx} from "clsx";
+import ImageComponent from "@/app/components/image/ImageComponent";
 
 
 export type Column<T> = {
@@ -41,7 +42,11 @@ export default function ItemsTable<T>  ({data, columns, rowKey, rowRender} : Tab
                         <td key={String(col.key)} className="px-6 py-4 tracking-wide max-w-96"
                             data-css={clsx(col?.key === 'establishedYear' && 'true')}
                         >
-                            {col.render ? col.render(row[col.key], row) : String(row[col.key] ?? "")}
+                            {col.key === 'images' ? (
+                                <ImageComponent url={(row[col.key] as string[] | undefined)?.[0]} width={100} height={100} />
+                            ) : (
+                                String(row[col.key] ?? "")
+                            )}
                         </td>
 
                     ));

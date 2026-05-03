@@ -11,6 +11,7 @@ type Props = {
 
 const columnsName: Column<MedalType>[]  = [
     { key: "name", header: "Name" },
+     {key: "images", header: "Images" },
     { key: "description", header: "Description" },
     { key: "medalType", header: "Type" },
     { key: "establishedYear", header: "Year" },

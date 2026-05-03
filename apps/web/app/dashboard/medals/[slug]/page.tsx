@@ -2,6 +2,7 @@ import {Metadata} from "next";
 import {MedalType} from "@medal-registry/types";
 import {getOneMedal} from "@/shared/api/medalActions";
 import Loader from "@/app/components/loader/Loader";
+import ImageComponent from "@/app/components/image/ImageComponent";
 
 interface MedalProps{
     params: Promise<{slug: string}>
@@ -23,9 +24,12 @@ const MedalPage = async ({params}: MedalProps) => {
     if (!medal) return <div className="flex items-center justify-center h-full"><Loader size={0.5}/></div>
 
     return (
-        <div>
+        <div className="flex  justify-center">
+          <ImageComponent url={medal?.images?.at(0)} title={medal.name} width={500} height={500} />
+          <div>
           <h2 className="mb-3 text-md font-semibold">Type: {medal.medalType}</h2>
           <p>Description: {medal.description}</p>
+          </div>
         </div>
     );
 };
