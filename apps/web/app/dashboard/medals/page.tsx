@@ -11,7 +11,11 @@ export default async function MedalsListPage() {
 
     return (
         <div className="p-6 h-full">
-             <HeaderDashboard title={'Medal list'} link={'medals'} />
+             <HeaderDashboard
+                 title={'Medal list'}
+                 link={'medals'}
+                 buttonText={'Add new medal'}
+             />
             {
                 !medalsList.length ?
                     <div className="flex items-center justify-center h-full">

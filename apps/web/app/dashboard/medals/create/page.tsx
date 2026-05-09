@@ -6,7 +6,7 @@ export default function CreateMedalPage() {
   return (
     <div className="flex justify-center py-10">
       <Card className="w-full max-w-lg">
-        <CardHeader><CardTitle>Добавление медали</CardTitle></CardHeader>
+        <CardHeader><CardTitle>Add medal</CardTitle></CardHeader>
         <CardContent>
           <CreateMedalForm  />
         </CardContent>

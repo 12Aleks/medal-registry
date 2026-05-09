@@ -1,4 +1,4 @@
-import React from 'react';
+"use client";
 import {Form, FormControl, FormField, FormItem, FormLabel, FormMessage} from "@/components/ui/form";
 import {Button} from "@/components/ui/button";
 import {ConflictSchema} from "@/shared/lib/schema/conflict";
@@ -7,6 +7,7 @@ import {z} from "zod";
 import {zodResolver} from "@hookform/resolvers/zod";
 import {ConflictType} from "@medal-registry/types";
 import {Input} from "@/components/ui/input";
+import {Textarea} from "@/components/ui/textarea";
 
 type ConflictFormValues = z.infer<typeof ConflictSchema>
 
@@ -45,7 +46,7 @@ const CreateConflictForm = () => {
                     render={({field}) => (
                         <FormItem>
                             <FormLabel>Description</FormLabel>
-                            <FormControl><Input placeholder="Description..." {...field} /></FormControl>
+                            <FormControl><Textarea placeholder="Description..." {...field} /></FormControl>
                             <FormMessage/>
                         </FormItem>
                     )}

@@ -1,4 +1,4 @@
-import React from 'react';
+
 import HeaderDashboard from "@/app/dashboard/components/HeaderDashboard";
 import {getConflicts} from "@/shared/api/conflictActions";
 import {ConflictType} from "@medal-registry/types";
@@ -13,7 +13,9 @@ const ConflictListPage = async () => {
         <div className="p-6 h-full">
             <HeaderDashboard
                 title={'Conflict list'}
-                link={'conflicts'} />
+                link={'conflicts'}
+                buttonText={'Add new conflict'}
+            />
             {
                !conflicts?.length?
                     <div className="flex items-center justify-center h-full">

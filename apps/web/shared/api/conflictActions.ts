@@ -13,3 +13,17 @@ export async function getConflicts(): Promise<ConflictType[]> {
         throw error;
     }
 }
+
+export async function getConflictById(id: string): Promise<ConflictType> {
+
+}
+
+export async function createConflict(conflictType: ConflictType): Promise<{ success: boolean }> {
+    try {
+        const api = createApi();
+        return { success: true }
+    }catch(error){
+        console.error("Error creating conflict:", error);
+        return { success: false }
+    }
+}
