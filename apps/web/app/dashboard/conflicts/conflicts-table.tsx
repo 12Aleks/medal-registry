@@ -4,6 +4,7 @@ import ItemsTable, {Column} from "@/app/components/table/Items-table";
 import {ConflictType} from "@medal-registry/types";
 import {SquarePen, SquareX} from "lucide-react";
 import {router} from "next/client";
+import {deleteConflict} from "@/shared/api/conflictActions";
 
 type ConflictTypeProps = {
     conflicts: ConflictType[];
@@ -41,6 +42,7 @@ const ConflictsTable = ({conflicts}: ConflictTypeProps) => {
                             size={30}
                             onClick={(e) => {
                                 e.stopPropagation();
+                                deleteConflict(row.slug)
                             }}
                             className='text-red-900 hover:text-red-950 duration-300 relative z-10'/>
                     </td>

@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Post } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Post } from '@nestjs/common';
 import { ConflictsService } from './conflicts.service';
 import { MilitaryConflictDto } from './dto/create-conflict.dto';
 
@@ -14,5 +14,10 @@ export class ConflictsController {
   @Post()
   createOne(@Body() dto: MilitaryConflictDto) {
     return this.conflictsService.create(dto);
+  }
+
+  @Delete(':slug')
+  deleteOne(@Param('slug') slug: string) {
+    return this.conflictsService.delete(slug);
   }
 }

@@ -8,10 +8,13 @@ import {zodResolver} from "@hookform/resolvers/zod";
 import {ConflictType} from "@medal-registry/types";
 import {Input} from "@/components/ui/input";
 import {Textarea} from "@/components/ui/textarea";
+import {createConflict} from "@/shared/api/conflictActions";
+import {useRouter} from "next/navigation"
 
 type ConflictFormValues = z.infer<typeof ConflictSchema>
 
 const CreateConflictForm = () => {
+    const router = useRouter();
     const form = useForm<ConflictFormValues>({
         resolver: zodResolver(ConflictSchema),
         defaultValues: {
@@ -22,8 +25,15 @@ const CreateConflictForm = () => {
         }
     });
 
-    const onSubmit = (conflict: Omit<ConflictType, "id" | "createdAt" | 'updatedAt' | 'slug'> ) => {
-       console.log(conflict);
+    const onSuccess = () => router.back();
+
+    const onSubmit = async (conflict: Omit<ConflictType, "id" | "createdAt" | 'updatedAt' | 'slug'> ) => {
+        const result = await createConflict(conflict as ConflictType)
+        if (result.success) {
+            onSuccess()
+        } else {
+            console.error("Failed to create medal")
+        }
     }
 
     return (
@@ -58,7 +68,9 @@ const CreateConflictForm = () => {
                     render={({field}) => (
                         <FormItem>
                             <FormLabel>Start year</FormLabel>
-                            <FormControl><Input type="number" placeholder="Start year..." {...field} /></FormControl>
+                            <FormControl><Input type="number" placeholder="Start year..." {...field}
+                                                onChange={e => field.onChange(e.target.valueAsNumber)}
+                            /></FormControl>
                             <FormMessage/>
                         </FormItem>
                     )}
@@ -69,14 +81,16 @@ const CreateConflictForm = () => {
                         render={({field}) => (
                             <FormItem>
                                 <FormLabel>End year</FormLabel>
-                                <FormControl><Input type="number" placeholder="End year..." {...field} /></FormControl>
+                                <FormControl><Input type="number" placeholder="End year..." {...field}
+                                                    onChange={e => field.onChange(e.target.valueAsNumber)}
+                                /></FormControl>
                                 <FormMessage/>
                             </FormItem>
                         )}
                     />
                 </div>
-                <Button type="submit" variant="customBlue" className="w-full" disabled={form.formState.isSubmitting}>
-                    {form.formState.isSubmitting ? "Saving..." : "Add medal"}
+                <Button type="submit" variant="customBlue" className="w-full mt-5 pointer" disabled={form.formState.isSubmitting}>
+                    {form.formState.isSubmitting ? "Saving..." : "Add conflict"}
                 </Button>
             </form>
         </Form>

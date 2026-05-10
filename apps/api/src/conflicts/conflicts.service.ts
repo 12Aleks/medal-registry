@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { MilitaryConflict } from './conflicts.entity';
 import { Repository } from 'typeorm';
@@ -10,6 +10,12 @@ export class ConflictsService {
     @InjectRepository(MilitaryConflict)
     private conflictRepo: Repository<MilitaryConflict>,
   ) {}
+
+  async ensureExists(slug: string) {
+    const medal = await this.conflictRepo.findOne({ where: { slug } });
+    if (!medal) throw new NotFoundException(`Conflict ${slug} not found`);
+    return medal;
+  }
 
   async create(data: MilitaryConflictDto): Promise<MilitaryConflict> {
     const conflict = this.conflictRepo.create({
@@ -24,5 +30,14 @@ export class ConflictsService {
 
   async findAll(): Promise<MilitaryConflict[]> {
     return await this.conflictRepo.find();
+  }
+
+  async delete(slug: string) {
+    await this.ensureExists(slug);
+    await this.conflictRepo.delete({ slug });
+    return {
+      statusCode: 200,
+      message: `Medal ${slug} deleted successfully.`,
+    };
   }
 }
