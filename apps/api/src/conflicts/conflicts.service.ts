@@ -32,6 +32,10 @@ export class ConflictsService {
     return await this.conflictRepo.find();
   }
 
+  async findOne(slug: string): Promise<MilitaryConflict> {
+    return await this.ensureExists(slug);
+  }
+
   async delete(slug: string) {
     await this.ensureExists(slug);
     await this.conflictRepo.delete({ slug });

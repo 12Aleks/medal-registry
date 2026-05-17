@@ -1,10 +1,9 @@
 'use client';
-import React from 'react';
 import ItemsTable, {Column} from "@/app/components/table/Items-table";
 import {ConflictType} from "@medal-registry/types";
 import {SquarePen, SquareX} from "lucide-react";
-import {router} from "next/client";
 import {deleteConflict} from "@/shared/api/conflictActions";
+import {useRouter} from "next/navigation";
 
 type ConflictTypeProps = {
     conflicts: ConflictType[];
@@ -19,6 +18,7 @@ const columnsName: Column<ConflictType>[]  = [
 ]
 
 const ConflictsTable = ({conflicts}: ConflictTypeProps) => {
+    const router = useRouter();
     return (
         <ItemsTable
             data={conflicts}

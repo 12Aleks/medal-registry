@@ -3,8 +3,14 @@ import {getMedals} from "@/shared/api/medalActions";
 import {MedalsTable} from "@/app/dashboard/medals/ medals-table";
 import Loader from "@/app/components/loader/Loader";
 import HeaderDashboard from "@/app/dashboard/components/HeaderDashboard";
+import {Metadata} from "next";
 
 export const dynamic = "force-dynamic";
+
+export const metadata: Metadata = {
+    title: "Medal list",
+    description: "Medals list for medal",
+}
 
 export default async function MedalsListPage() {
     const medalsList: MedalType[] = await getMedals();

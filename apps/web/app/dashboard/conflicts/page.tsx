@@ -4,8 +4,14 @@ import {getConflicts} from "@/shared/api/conflictActions";
 import {ConflictType} from "@medal-registry/types";
 import ConflictsTable from "@/app/dashboard/conflicts/conflicts-table";
 import Loader from "@/app/components/loader/Loader";
+import {Metadata} from "next";
 
 export const dynamic = "force-dynamic";
+
+export const metadata: Metadata = {
+    title: "Conflict list",
+    description: "List of conflicts",
+}
 
 const ConflictListPage = async () => {
     const conflicts: ConflictType[] = await getConflicts()

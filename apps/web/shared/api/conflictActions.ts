@@ -30,6 +30,17 @@ export async function getConflicts(): Promise<ConflictType[]> {
     }
 }
 
+export async function getOneConflict(slug: string): Promise<ConflictType>{
+    try{
+        const api = createApi();
+        const {data} = await api.get(`/conflicts/${slug}`);
+        return data
+    }catch(error){
+        console.error("Error getting conflict:", error);
+        throw error;
+    }
+}
+
 export async  function deleteConflict(slug: string):Promise<ErrorObject | unknown> {
     try{
         const api = createApi();
@@ -42,6 +53,3 @@ export async  function deleteConflict(slug: string):Promise<ErrorObject | unknow
     }
 }
 
-// export async function getConflictById(id: string): Promise<ConflictType> {
-//
-// }

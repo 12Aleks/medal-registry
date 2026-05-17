@@ -11,6 +11,11 @@ export class ConflictsController {
     return this.conflictsService.findAll();
   }
 
+  @Get(':slug')
+  findOne(@Param('slug') slug: string) {
+    return this.conflictsService.findOne(slug);
+  }
+
   @Post()
   createOne(@Body() dto: MilitaryConflictDto) {
     return this.conflictsService.create(dto);
