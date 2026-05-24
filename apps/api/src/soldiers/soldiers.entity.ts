@@ -8,7 +8,7 @@ import {
 } from 'typeorm';
 import { ServiceRecord } from '../service-records/service-record.entity';
 import { SoldierAward } from 'src/soldiers-award/solders-award.entity';
-import { IsString } from 'class-validator';
+
 
 @Entity()
 export class Soldier {

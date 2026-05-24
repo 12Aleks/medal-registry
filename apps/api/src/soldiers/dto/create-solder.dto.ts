@@ -12,6 +12,7 @@ export class CreateSolderDto implements Solder {
   @IsOptional()
   @IsString()
   rank?: string;
+
   @IsString()
   slug!: string;
 

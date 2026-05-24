@@ -22,7 +22,10 @@ export class Regiment {
   @Column({ nullable: true })
   description!: string;
 
-  @OneToMany(() => ServiceRecord, sr => sr.regiment)
+  @Column({ default: '' })
+  slug!: string;
+
+  @OneToMany(() => ServiceRecord, (sr) => sr.regiment)
   serviceRecords!: ServiceRecord[];
 
   @CreateDateColumn()
