@@ -1,8 +1,6 @@
 import { Module } from '@nestjs/common';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { AppController } from './app.controller';
-import { AppService } from './app.service';
 import { SoldiersModule } from './soldiers/soldiers.module';
 import { MedalsModule } from './medals/medals.module';
 import { UsersModule } from './users/users.module';
@@ -46,7 +44,5 @@ import { ColectionItemModule } from './colections-item/colections-item.module';
     SoldierAwardModule,
     ColectionItemModule,
   ],
-  controllers: [AppController],
-  providers: [AppService],
 })
 export class AppModule {}
