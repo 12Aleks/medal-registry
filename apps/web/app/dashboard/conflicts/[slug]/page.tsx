@@ -1,4 +1,4 @@
-import {ConflictType, ErrorObject, MetadataType} from "@medal-registry/types";
+import {ConflictType, ErrorObjectType, MetadataType} from "@medal-registry/types";
 import {getOneConflict} from "@/shared/api/conflictActions";
 import Loader from "@/app/components/loader/Loader";
 import ImageComponent from "@/app/components/image/ImageComponent";

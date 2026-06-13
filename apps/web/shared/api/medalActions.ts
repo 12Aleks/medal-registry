@@ -1,7 +1,7 @@
 "use server"
 
 import {createApi} from "@/shared/api/initialAxios";
-import {ErrorObject, MedalType} from "@medal-registry/types";
+import {ErrorObjectType, MedalType} from "@medal-registry/types";
 import {revalidatePath} from "next/cache";
 import {slugify} from "@/shared/utils/slugify";
 
@@ -45,7 +45,7 @@ export async function getOneMedal(slug: string):Promise<MedalType>{
     }
 }
 
-export async function deleteOneMedal(slug: string):Promise<ErrorObject | unknown>{
+export async function deleteOneMedal(slug: string):Promise<ErrorObjectType | unknown>{
     try{
         const api = createApi();
         const {data} = await api.delete(`/medals/${slug}`);

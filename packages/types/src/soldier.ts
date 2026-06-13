@@ -1,4 +1,4 @@
-export interface Solder {
+export interface SoldierType {
     name?: string;
     surname: string;
     rank?: string;

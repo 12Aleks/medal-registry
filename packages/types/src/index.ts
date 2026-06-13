@@ -1,7 +1,7 @@
 export * from './medal'
 export * from './conflict'
 export * from './error'
-export * from  './solder'
+export * from './soldier'
 export * from  './regiment'
 export * from  './service_record'
 

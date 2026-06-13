@@ -1,5 +1,5 @@
 "use server"
-import {ConflictType, ErrorObject} from "@medal-registry/types";
+import {ConflictType, ErrorObjectType} from "@medal-registry/types";
 import {createApi} from "@/shared/api/initialAxios";
 import {slugify} from "@/shared/utils/slugify";
 import {revalidatePath} from "next/cache";
@@ -41,7 +41,7 @@ export async function getOneConflict(slug: string): Promise<ConflictType>{
     }
 }
 
-export async  function deleteConflict(slug: string):Promise<ErrorObject | unknown> {
+export async  function deleteConflict(slug: string):Promise<ErrorObjectType | unknown> {
     try{
         const api = createApi();
         const data = await api.delete(`/conflicts/${slug}`);

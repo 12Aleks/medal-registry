@@ -1,7 +1,7 @@
-import { Solder } from '@medal-registry/types';
+import { SoldierType } from '@medal-registry/types';
 import { IsOptional, IsString } from 'class-validator';
 
-export class CreateSolderDto implements Solder {
+export class CreateSolderDto implements SoldierType {
   @IsOptional()
   @IsString()
   name?: string;

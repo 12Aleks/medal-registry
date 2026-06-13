@@ -1,12 +1,12 @@
-import {Soldier} from "server/dist/soldiers/soldiers.entity";
-import {Regiment} from "server/dist/regiments/regiments.entity";
-import {MilitaryConflict} from "server/dist/conflicts/conflicts.entity";
+import { SoldierType } from './soldier';
+import { RegimentType } from './regiment';
+import { ConflictType } from './conflict';
 
-export interface ServiceRecord {
+export interface ServiceRecordType {
     id?: string;
-    soldier: Soldier;
-    regiment: Regiment;
-    conflict?: MilitaryConflict | null;
+    soldier: SoldierType;
+    regiment: RegimentType;
+    conflict?: ConflictType | null;
     startYear?: number | null;
     endYear?: number | null;
     slug: string;
