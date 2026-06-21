@@ -7,6 +7,14 @@ type Props = {
     onClose: () => void;
 };
 
+const sidebarMenu = [
+    {label: 'Home', link: '/' },
+    {label: 'Conflicts list', link: '/dashboard/conflicts' },
+    {label: 'Medals list', link: '/dashboard/medals' },
+    {label: 'Soldiers list', link: '/dashboard/soldiers' },
+    {label: 'Wanted medals', link: '/dashboard/wanted' },
+]
+
 export default function Sidebar({open, onClose}: Props) {
     return (
         <>
@@ -44,18 +52,13 @@ export default function Sidebar({open, onClose}: Props) {
                 </div>
 
                 <nav className="p-4 space-y-1">
-                    <Link href="/" className="block rounded px-3 py-2 hover:bg-gray-800">
-                        Home
-                    </Link>
-                    <Link href="/dashboard/conflicts" className="block rounded px-3 py-2 hover:bg-gray-800">
-                        Conflicts list
-                    </Link>
-                    <Link href="/dashboard/medals" className="block rounded px-3 py-2 hover:bg-gray-800">
-                        Medals list
-                    </Link>
-                    <Link href="/dashboard/wanted" className="block rounded px-3 py-2 hover:bg-gray-800">
-                        Wanted
-                    </Link>
+                    {
+                        sidebarMenu.map((menu) =>
+                            <Link href={menu.link} key={menu.link} className="block rounded px-3 py-2 hover:bg-gray-800">
+                                {menu.label}
+                            </Link>
+                        )
+                    }
                 </nav>
             </aside>
         </>

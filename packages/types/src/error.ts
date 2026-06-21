@@ -4,3 +4,8 @@ export type ErrorObjectType = {
     "error"?: string;
     "code"?: number;
 }
+
+export type ActionCatchError = {
+    success: boolean;
+    message: string;
+}

@@ -1,4 +1,5 @@
 export interface SoldierType {
+    id?: string;
     name?: string;
     surname: string;
     rank?: string;
