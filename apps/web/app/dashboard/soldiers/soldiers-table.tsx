@@ -1,22 +1,22 @@
 "use client"
 import {SoldierType} from "@medal-registry/types";
-import ItemsTable, {Column} from "@/app/components/table/Items-table";
+import ItemsTable, { ColumnType } from "@/app/components/table/Items-table";
 import {useRouter} from "next/navigation";
 import {SquarePen, SquareX} from "lucide-react";
 import {deleteOneMedal} from "@/shared/api/medalActions";
 
-type Props = {
+type SoldiersType = {
     soldiers: SoldierType[]
 }
 
-const columnsName: Column<SoldierType>[]  = [
+const columnsName: ColumnType<SoldierType>[]  = [
     { key: "serviceNumber", header: "Service number" },
     { key: "name", header: "Name" },
     { key: "surname", header: "Surname" },
     { key: "rank", header: "Rank" },
 ]
 
-export function SoldiersTable({ soldiers }: Props) {
+export function SoldiersTable({ soldiers }: SoldiersType) {
     const router = useRouter();
     return (
         <ItemsTable

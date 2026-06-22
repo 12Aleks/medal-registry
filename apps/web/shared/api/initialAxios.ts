@@ -1,4 +1,4 @@
-import axios, {AxiosInstance} from "axios";
+import axios from "axios";
 
 export const createApi = () => {
     const isServer = typeof window === 'undefined';
@@ -14,3 +14,5 @@ export const createApi = () => {
         },
     });
 };
+
+export const api = createApi();

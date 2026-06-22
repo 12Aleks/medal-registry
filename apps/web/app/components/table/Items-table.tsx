@@ -1,24 +1,22 @@
-"use client"
 import {ReactNode, Key} from "react";
 import styles from './table.module.scss';
 import {clsx} from "clsx";
 import ImageComponent from "@/app/components/image/ImageComponent";
 
-
-export type Column<T> = {
+export type ColumnType<T> = {
     key: keyof T
     header: string
     render?: (value: unknown, row: T) => ReactNode
 }
 
-type TableProps<T> = {
+type TableType<T> = {
     data: T[]
-    columns: Column<T>[]
+    columns: ColumnType<T>[]
     rowKey: (row: T) => Key
     rowRender?: (row: T, rowIndex: number, rowContent: ReactNode[]) => ReactNode
 }
 
-export default function ItemsTable<T>  ({data, columns, rowKey, rowRender} : TableProps<T>) {
+export default function ItemsTable<T>  ({data, columns, rowKey, rowRender} : TableType<T>) {
     return (
         <div className="relative overflow-x-auto bg-neutral-primary-soft shadow-xs rounded-base border border-default">
             <table className={clsx(styles.table_wrapper, 'w-full text-sm text-left rtl:text-right text-body')}>

@@ -1,6 +1,6 @@
 "use client"
 import {MedalType} from "@medal-registry/types";
-import ItemsTable, {Column} from "@/app/components/table/Items-table";
+import ItemsTable, { ColumnType } from "@/app/components/table/Items-table";
 import {useRouter} from "next/navigation";
 import {SquarePen, SquareX} from "lucide-react";
 import {deleteOneMedal} from "@/shared/api/medalActions";
@@ -9,7 +9,7 @@ type Props = {
     medals: MedalType[]
 }
 
-const columnsName: Column<MedalType>[]  = [
+const columnsName: ColumnType<MedalType>[]  = [
     { key: "name", header: "Name" },
      {key: "images", header: "Images" },
     { key: "description", header: "Description" },

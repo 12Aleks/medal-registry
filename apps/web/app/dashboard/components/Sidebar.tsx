@@ -1,8 +1,6 @@
-"use client";
-
 import Link from "next/link";
 
-type Props = {
+type SidebarType = {
     open: boolean;
     onClose: () => void;
 };
@@ -15,10 +13,9 @@ const sidebarMenu = [
     {label: 'Wanted medals', link: '/dashboard/wanted' },
 ]
 
-export default function Sidebar({open, onClose}: Props) {
+export default function Sidebar({open, onClose}: SidebarType) {
     return (
         <>
-            {/* Overlay */}
             <div
                 aria-hidden="true"
                 onClick={onClose}

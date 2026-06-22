@@ -1,5 +1,5 @@
 'use client';
-import ItemsTable, {Column} from "@/app/components/table/Items-table";
+import ItemsTable, { ColumnType } from "@/app/components/table/Items-table";
 import {ConflictType} from "@medal-registry/types";
 import {SquarePen, SquareX} from "lucide-react";
 import {deleteConflict} from "@/shared/api/conflictActions";
@@ -9,8 +9,7 @@ type ConflictTypeProps = {
     conflicts: ConflictType[];
 }
 
-
-const columnsName: Column<ConflictType>[]  = [
+const columnsName: ColumnType<ConflictType>[]  = [
     { key: "name", header: "Name" },
     { key: "description", header: "Description" },
     { key: "startYear", header: "Start year" },

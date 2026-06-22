@@ -1,15 +1,32 @@
 "use server"
-
-import {createApi} from "@/shared/api/initialAxios";
+import { api } from "@/shared/api/initialAxios";
 import {SoldierType} from "@medal-registry/types";
+import {slugify} from "@/shared/utils/slugify";
+import {revalidatePath} from "next/cache";
 
-export async function getAllSoldiers(){
+
+export async function createSoldier(data: SoldierType){
     try{
-        const api = createApi();
-        const { data } = await api.get<SoldierType[]>('/soldiers/all');
-        return data;
+     const slugData = `${data?.name ?? ''} ${data?.surname ?? ''} ${data?.serviceNumber ?? ''}`.trim();
+     await api.post('/soldiers', {
+         ...data,
+         slug: slugify(slugData),
+     })
+     revalidatePath("/dashboard/conflicts");
+     return { success: true, message: 'Solder successfully created!' };
     }catch (error){
-        console.error("Error creating medal:", error);
+        console.error("Error creating solder:", error);
         return { success: false, message: error instanceof Error ? error.message : 'An unexpected error occurred' };
     }
 }
+
+export async function getAllSoldiers(){
+    try{
+        const { data } = await api.get<SoldierType[]>('/soldiers/all');
+        return data;
+    }catch (error){
+        console.error("Error creating solder:", error);
+        return { success: false, message: error instanceof Error ? error.message : 'An unexpected error occurred' };
+    }
+}
+
