@@ -23,8 +23,8 @@ export class SoldiersAwardController {
     return await this.awardService.findAll();
   }
 
-  @Get('soldier/:id')
-  async findBySoldier(@Param('id', ParseUUIDPipe) id: string) {
-    return await this.awardService.findBySoldier(id);
+  @Get('soldier/:slug')
+  async findBySoldier(@Param('slug', ParseUUIDPipe) slug: string) {
+    return await this.awardService.findBySoldier(slug);
   }
 }

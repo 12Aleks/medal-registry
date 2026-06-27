@@ -7,7 +7,7 @@ import {
   UpdateDateColumn,
 } from 'typeorm';
 import { ServiceRecord } from 'src/service-records/service-record.entity';
-import { SoldierAward } from 'src/soldiers-award/solders-award.entity';
+import { SoldierAward } from 'src/soldiers-award/soldiers-award.entity';
 
 @Entity()
 export class MilitaryConflict {

@@ -7,7 +7,7 @@ import {
   OneToMany,
 } from 'typeorm';
 
-import { SoldierAward } from '../soldiers-award/solders-award.entity';
+import { SoldierAward } from '../soldiers-award/soldiers-award.entity';
 
 @Entity()
 export class Medal {

@@ -9,7 +9,7 @@ import ErrorComponent from "@/app/components/error/ErrorComponent";
 export const dynamic = "force-dynamic";
 
 export const metadata: Metadata = {
-    title: "Soliders list",
+    title: "Soldiers list",
     description: "Soldiers list",
 }
 
@@ -18,8 +18,7 @@ export default async function SoldersListPage() {
     const soldiersList: SoldierType[] | ActionCatchError = await getAllSoldiers();
 
     if(!soldiersList || !Array.isArray(soldiersList)) {
-        return <ErrorComponent error={soldiersList}
-                               reset={ () => console.log('up') } />;
+        return <ErrorComponent error={soldiersList} />;
     }
 
 

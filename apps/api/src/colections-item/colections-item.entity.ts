@@ -1,4 +1,4 @@
-import { SoldierAward } from "src/soldiers-award/solders-award.entity";
+import { SoldierAward } from 'src/soldiers-award/soldiers-award.entity';
 import {
   Entity,
   PrimaryGeneratedColumn,
@@ -13,7 +13,7 @@ export class CollectionItem {
   @PrimaryGeneratedColumn('uuid')
   id!: string;
 
-  @ManyToOne(() => SoldierAward, sa => sa.collectionItems, { eager: true })
+  @ManyToOne(() => SoldierAward, (sa) => sa.collectionItems, { eager: true })
   soldierAward!: SoldierAward;
 
   @Column({ nullable: true })
