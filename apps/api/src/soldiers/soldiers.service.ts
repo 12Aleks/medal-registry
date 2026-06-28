@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException, Param } from '@nestjs/common';
 import { Soldier } from './soldiers.entity';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
@@ -21,5 +21,11 @@ export class SoldiersService {
 
   async getAll(): Promise<Soldier[]> {
     return this.soldiersRepository.find();
+  }
+
+  async findOneSoldier(@Param('slug') slug: string): Promise<Soldier> {
+    const soldier = await this.soldiersRepository.findOne({ where: { slug } });
+    if (!soldier) throw new NotFoundException(`Soldier ${slug} is not found`);
+    return soldier;
   }
 }

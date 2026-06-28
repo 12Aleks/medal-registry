@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Post } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post } from '@nestjs/common';
 import { CreateSolderDto } from './dto/create-solder.dto';
 import { SoldiersService } from './soldiers.service';
 
@@ -14,5 +14,10 @@ export class SoldiersController {
   @Get('all')
   getAll() {
     return this.soldiersRepository.getAll();
+  }
+
+  @Get(':slug')
+  findOneSoldier(@Param('slug') slug: string) {
+    return this.soldiersRepository.findOneSoldier(slug);
   }
 }

@@ -1,15 +1,17 @@
-import {ConflictType, ErrorObjectType, MetadataType} from "@medal-registry/types";
+import {ActionCatchState, ConflictType, MetadataType, ParamsPropsType} from "@medal-registry/types";
 import {getOneConflict} from "@/shared/api/conflictActions";
-import Loader from "@/app/components/loader/Loader";
+import Index from "@/app/components/loader";
 import ImageComponent from "@/app/components/image/ImageComponent";
+import {isActionError} from "@/shared/utils/checkActionData";
 
-type ConflictPageType = {
-    params: Promise<{slug: string}>
-}
-
-export async function generateMetadata({params}: ConflictPageType): Promise<MetadataType> {
+export async function generateMetadata({params}: ParamsPropsType): Promise<MetadataType> {
     const {slug} = await params;
-    const data: ConflictType  = await getOneConflict(slug);
+    const data: ConflictType | ActionCatchState  = await getOneConflict(slug);
+
+    if (isActionError(data))  return {
+        title: 'Data not found',
+        description: 'Data not found',
+    }
 
     return {
         title: data?.name,
@@ -17,11 +19,11 @@ export async function generateMetadata({params}: ConflictPageType): Promise<Meta
     }
 }
 
-const ConflictPage = async ({params}: ConflictPageType) => {
+const ConflictPage = async ({params}: ParamsPropsType) => {
     const {slug} = await params;
-    const conflict: ConflictType  = await getOneConflict(slug);
+    const conflict: ConflictType | ActionCatchState  = await getOneConflict(slug);
 
-    if (!conflict) return <div className="flex items-center justify-center h-full"><Loader size={0.5}/></div>
+    if (isActionError(conflict)) return <div className="flex items-center justify-center h-full"><Index size={0.5}/></div>
 
     return (
         <div className="flex  justify-center">

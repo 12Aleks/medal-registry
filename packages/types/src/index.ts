@@ -11,3 +11,7 @@ export type MetadataType = {
     title: string,
     description: string,
 }
+
+export type ParamsPropsType = {
+    params: Promise<{slug: string}>
+}

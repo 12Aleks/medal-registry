@@ -1,14 +1,10 @@
 import {Metadata} from "next";
-import {MedalType} from "@medal-registry/types";
+import {MedalType, ParamsPropsType} from "@medal-registry/types";
 import {getOneMedal} from "@/shared/api/medalActions";
-import Loader from "@/app/components/loader/Loader";
+import Index from "@/app/components/loader";
 import ImageComponent from "@/app/components/image/ImageComponent";
 
-interface MedalProps{
-    params: Promise<{slug: string}>
-}
-
-export async function generateMetadata({ params }: MedalProps):Promise<Metadata>{
+export async function generateMetadata({ params }: ParamsPropsType):Promise<Metadata>{
     const {slug} = await params;
     const medal: MedalType = await getOneMedal(slug);
     return {
@@ -17,11 +13,11 @@ export async function generateMetadata({ params }: MedalProps):Promise<Metadata>
     }
 }
 
-const MedalPage = async ({params}: MedalProps) => {
+const MedalPage = async ({params}: ParamsPropsType) => {
     const {slug} = await params;
     const medal: MedalType = await getOneMedal(slug);
 
-    if (!medal) return <div className="flex items-center justify-center h-full"><Loader size={0.5}/></div>
+    if (!medal) return <div className="flex items-center justify-center h-full"><Index size={0.5}/></div>
 
     return (
         <div className="flex  justify-center">

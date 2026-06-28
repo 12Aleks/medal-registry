@@ -24,10 +24,11 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-   <html lang="en" suppressHydrationWarning = { true }
+   <html lang="en" suppressHydrationWarning
   //  className="dark"
    >
       <body className="min-h-screen"
+            suppressHydrationWarning
             data-new-gr-c-s-check-loaded="14.1277.0" data-gr-ext-installed=""
       >
            {children}

@@ -4,7 +4,7 @@ interface LoaderProps {
     size?: number;
 }
 
-const Loader = ({ size = 1 }: LoaderProps) => {
+const Index = ({ size = 1 }: LoaderProps) => {
     return (
         <div
             className={`flex items-center justify-center`}
@@ -23,4 +23,4 @@ const Loader = ({ size = 1 }: LoaderProps) => {
     );
 };
 
-export default Loader;
+export default Index;

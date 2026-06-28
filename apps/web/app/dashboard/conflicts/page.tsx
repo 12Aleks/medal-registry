@@ -1,10 +1,12 @@
-
 import HeaderDashboard from "@/app/dashboard/components/HeaderDashboard";
 import {getConflicts} from "@/shared/api/conflictActions";
-import {ConflictType} from "@medal-registry/types";
+import {ActionCatchState, ConflictType} from "@medal-registry/types";
 import ConflictsTable from "@/app/dashboard/conflicts/conflicts-table";
-import Loader from "@/app/components/loader/Loader";
 import {Metadata} from "next";
+import Loading from "@/app/components/loader/Loading";
+import EmptyListPlaceholder from "@/app/components/feedback/EmptyListPlaceholder";
+import {isActionError} from "@/shared/utils/checkActionData";
+import ErrorComponent from "@/app/components/error/ErrorComponent";
 
 export const dynamic = "force-dynamic";
 
@@ -14,7 +16,10 @@ export const metadata: Metadata = {
 }
 
 const ConflictListPage = async () => {
-    const conflicts: ConflictType[] = await getConflicts()
+    const conflicts: ConflictType[] | ActionCatchState = await getConflicts()
+
+    if (isActionError(conflicts)) return <ErrorComponent error={conflicts} />
+
     return (
         <div className="p-6 h-full">
             <HeaderDashboard
@@ -23,10 +28,14 @@ const ConflictListPage = async () => {
                 buttonText={'Add new conflict'}
             />
             {
-               !conflicts?.length?
-                    <div className="flex items-center justify-center h-full">
-                        <Loader size={0.5}/>
-                    </div> :
+                !conflicts && <Loading />
+            }
+
+            {conflicts && conflicts.length === 0 && <EmptyListPlaceholder
+                information={'Conflicts not found. The list is empty.'}/>
+            }
+
+            { conflicts && conflicts.length > 0 &&
                   <ConflictsTable  conflicts={conflicts} />
             }
             

@@ -1,9 +1,9 @@
-import {ActionCatchError, SoldierAwardType} from "@medal-registry/types";
+import { ActionCatchState, SoldierAwardType } from "@medal-registry/types";
 import {api} from "@/shared/api/initialAxios";
 import {revalidatePath} from "next/cache";
 
 
-export async function createSoldierAward(data: SoldierAwardType):Promise<SoldierAwardType | ActionCatchError> {
+export async function createSoldierAward(data: SoldierAwardType):Promise<SoldierAwardType | ActionCatchState> {
     try {
         await api.post("/soldier-awards", data);
         revalidatePath("/dashboard/soldiers");
@@ -14,7 +14,7 @@ export async function createSoldierAward(data: SoldierAwardType):Promise<Soldier
     }
 }
 
-export async function getAllSoldierAwards(): Promise<SoldierAwardType[] | ActionCatchError> {
+export async function getAllSoldierAwards(): Promise<SoldierAwardType[] | ActionCatchState> {
     try{
         return await api.get("/soldier-awards");
     }catch(error){
