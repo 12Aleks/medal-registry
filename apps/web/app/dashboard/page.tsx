@@ -1,4 +1,12 @@
-const DashboardPage = ({}) => {
+import {getDashboardData} from "@/shared/api/soldierAction";
+import {isActionError} from "@/shared/utils/checkActionData";
+import ErrorComponent from "@/app/components/error/ErrorComponent";
+import React from "react";
+
+const DashboardPage = async ({}) => {
+        const data = await getDashboardData()
+        console.log("DashboardPage", data);
+        // if (isActionError(data)) return <ErrorComponent error={data} />;
         const recentSoldiers = [
                 { id: '1', name: 'Sgt. James Barnes', rank: 'Sergeant', conflictsCount: 2, medalsCount: 3, addedAt: '2 hours ago' },
                 { id: '2', name: 'Pvt. Alex Mercer', rank: 'Private', conflictsCount: 1, medalsCount: 1, addedAt: 'Yesterday' },

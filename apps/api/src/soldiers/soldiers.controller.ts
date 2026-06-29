@@ -20,4 +20,9 @@ export class SoldiersController {
   findOneSoldier(@Param('slug') slug: string) {
     return this.soldiersRepository.findOneSoldier(slug);
   }
+
+  @Get('dashboard/status')
+  async getDashboardStats() {
+    return this.soldiersRepository.getDashboardStats();
+  }
 }

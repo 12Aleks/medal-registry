@@ -15,13 +15,17 @@ export class ServiceRecord {
   @PrimaryGeneratedColumn('uuid')
   id!: string;
 
-  @ManyToOne(() => Soldier, soldier => soldier.serviceRecords, { eager: true })
+  @ManyToOne(() => Soldier, (soldier) => soldier.serviceRecords, {
+    eager: true,
+  })
   soldier!: Soldier;
 
-  @ManyToOne(() => Regiment, regiment => regiment.serviceRecords, { eager: true })
+  @ManyToOne(() => Regiment, (regiment) => regiment.serviceRecords, {
+    eager: true,
+  })
   regiment!: Regiment;
 
-  @ManyToOne(() => MilitaryConflict, conflict => conflict.serviceRecords, {
+  @ManyToOne(() => MilitaryConflict, (conflict) => conflict.serviceRecords, {
     eager: true,
     nullable: true,
   })
