@@ -1,22 +1,21 @@
-import { IsOptional, IsString } from 'class-validator';
+import { IsOptional, IsString, IsNumber } from 'class-validator';
 
-export class CreateServiceRecordDto implements CreateServiceRecordDto {
+export class CreateServiceRecordDto {
   @IsString()
-  soldier!: string;
+  soldierId!: string;
 
   @IsString()
-  regiment!: string;
+  regimentId!: string;
 
   @IsOptional()
   @IsString()
-  conflict?: string | null;
-
-  @IsString()
-  slug!: string;
+  conflictId?: string | null;
 
   @IsOptional()
+  @IsNumber()
   startYear?: number;
 
   @IsOptional()
+  @IsNumber()
   endYear?: number;
 }
