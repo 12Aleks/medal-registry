@@ -1,7 +1,6 @@
 import {ActionCatchState, MedalType} from "@medal-registry/types";
 import {getMedals} from "@/shared/api/medalActions";
-import {MedalsTable} from "@/app/dashboard/medals/ medals-table";
-import Index from "@/app/components/loader";
+import {MedalsTable} from "@/app/dashboard/medals/medals-table";
 import HeaderDashboard from "@/app/dashboard/components/HeaderDashboard";
 import {Metadata} from "next";
 import {isActionError} from "@/shared/utils/checkActionData";

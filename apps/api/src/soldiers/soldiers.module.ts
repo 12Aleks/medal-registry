@@ -6,10 +6,17 @@ import { SoldiersController } from './soldiers.controller';
 import { SoldierAward } from '../soldiers-award/soldiers-award.entity';
 import { Medal } from '../medals/medals.entity';
 import { MilitaryConflict } from '../conflicts/conflicts.entity';
+import { ServiceRecord } from '../service-records/service-record.entity';
 
 @Module({
   imports: [
-    TypeOrmModule.forFeature([SoldierAward, Soldier, Medal, MilitaryConflict]),
+    TypeOrmModule.forFeature([
+      SoldierAward,
+      ServiceRecord,
+      Soldier,
+      Medal,
+      MilitaryConflict,
+    ]),
   ],
   providers: [SoldiersService],
   controllers: [SoldiersController],

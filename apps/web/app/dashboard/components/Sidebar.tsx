@@ -9,6 +9,7 @@ const sidebarMenu = [
     {label: 'Home', link: '/' },
     {label: 'Conflicts list', link: '/dashboard/conflicts' },
     {label: 'Medals list', link: '/dashboard/medals' },
+    {label: 'Regiments list', link: '/dashboard/regiments' },
     {label: 'Soldiers list', link: '/dashboard/soldiers' },
     {label: 'Wanted medals', link: '/dashboard/wanted' },
 ]
@@ -51,7 +52,7 @@ export default function Sidebar({open, onClose}: SidebarType) {
                 <nav className="p-4 space-y-1">
                     {
                         sidebarMenu.map((menu) =>
-                            <Link href={menu.link} key={menu.link} className="block rounded px-3 py-2 hover:bg-gray-800">
+                            <Link href={menu.link} key={menu.link} className="block text-md rounded px-3 py-2 hover:bg-gray-800">
                                 {menu.label}
                             </Link>
                         )
