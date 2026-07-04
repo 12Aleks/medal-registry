@@ -1,9 +1,9 @@
 "use client"
-import {MedalType, RegimentType} from "@medal-registry/types";
+import {RegimentType} from "@medal-registry/types";
 import ItemsTable, { ColumnType } from "@/app/components/table/Items-table";
 import {useRouter} from "next/navigation";
 import {SquarePen, SquareX} from "lucide-react";
-import {deleteOneMedal} from "@/shared/api/medalActions";
+import {deleteOneRegiment} from "@/shared/api/regimentActions";
 
 type RegimentsTableType = {
     regiments: RegimentType[]
@@ -25,7 +25,7 @@ export function RegimentsTable({ regiments }: RegimentsTableType) {
             rowRender={(row, idx, rowContent) => (
                 <tr
                     key={row.id ?? row.name}
-                    onClick={() => router.push(`/dashboard/medals/${row.slug}`)}
+                    onClick={() => router.push(`/dashboard/regiments/${row.slug}`)}
                     className="bg-neutral-primary border-b border-default text-background-blue duration-300 hover:bg-gray-300/20 cursor-pointer"
                 >
                     {rowContent}
@@ -40,7 +40,7 @@ export function RegimentsTable({ regiments }: RegimentsTableType) {
                             size={30}
                             onClick={(e) => {
                                 e.stopPropagation();
-                                deleteOneMedal(row.slug)
+                                deleteOneRegiment(row.slug)
                             }}
                             className='text-red-900 hover:text-red-950 duration-300 relative z-10'/>
                     </td>

@@ -3,7 +3,6 @@
 import {useForm, SubmitHandler} from "react-hook-form"
 import {zodResolver} from "@hookform/resolvers/zod"
 import {z} from "zod"
-import {medalSchema} from "@/shared/lib/schema/medal"
 import {Button} from "@/components/ui/button"
 import {Input} from "@/components/ui/input"
 import {Textarea} from "@/components/ui/textarea"
@@ -16,8 +15,8 @@ import {
     FormMessage,
 } from "@/components/ui/form"
 
-import {createMedal} from "@/shared/api/medalActions"
-import {MedalType} from "@medal-registry/types"
+import {createRegimentType} from "@/shared/api/regimentActions"
+import {RegimentType} from "@medal-registry/types"
 import {useRouter} from "next/navigation";
 import {regimentSchema} from "@/shared/lib/schema/regiment";
 
@@ -35,16 +34,17 @@ export function CreateRegimentForm() {
 
     const router = useRouter();
 
-    const onSuccess = () => router.back();
+    const onSuccess = () => {
+        router.replace("/dashboard/regiments");
+        router.refresh();
+    };
 
     const onSubmit: SubmitHandler<RegimentFormValues> = async (values) => {
-        console.log("Saving data:", values);
-
-        const result = await createMedal(values as MedalType)
+        const result = await createRegimentType(values as RegimentType)
         if (result.success) {
             onSuccess()
         } else {
-            console.error("Failed to create medal")
+            console.error("Failed to create regiment:", result.message)
         }
     }
 
@@ -57,7 +57,7 @@ export function CreateRegimentForm() {
                         name="name"
                         render={({field}) => (
                             <FormItem>
-                                <FormLabel>Medal name</FormLabel>
+                                <FormLabel>Regiment name</FormLabel>
                                 <FormControl><Input placeholder="Regiment name..." {...field} /></FormControl>
                                 <FormMessage/>
                             </FormItem>
@@ -68,7 +68,7 @@ export function CreateRegimentForm() {
                         name="country"
                         render={({field}) => (
                             <FormItem>
-                                <FormLabel>Medal name</FormLabel>
+                                <FormLabel>Country</FormLabel>
                                 <FormControl><Input placeholder="Country..." {...field} /></FormControl>
                                 <FormMessage/>
                             </FormItem>
@@ -88,7 +88,7 @@ export function CreateRegimentForm() {
                 />
 
                 <Button type="submit" variant="customBlue" className="w-full" disabled={form.formState.isSubmitting}>
-                    {form.formState.isSubmitting ? "Saving..." : "Add new regiment"}
+                    {form.formState.isSubmitting ? "Saving..." : "Add regiment"}
                 </Button>
             </form>
         </Form>

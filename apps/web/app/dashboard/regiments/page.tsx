@@ -23,9 +23,9 @@ export default async function RegimentsListPage() {
     return (
         <div className="p-6 h-full">
              <HeaderDashboard
-                 title={'Medal list'}
-                 link={'medals'}
-                 buttonText={'Add new medal'}
+                 title={'Regiments list'}
+                 link={'regiments'}
+                 buttonText={'Add new regiment'}
              />
             {
                 !regimentsList &&  <Loading />
