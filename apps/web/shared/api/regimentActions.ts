@@ -1,6 +1,6 @@
 "use server"
 
-import { createApi } from "@/shared/api/initialAxios";
+import { api } from "@/shared/api/initialAxios";
 import {ActionCatchState, ErrorObjectType, RegimentType} from "@medal-registry/types";
 import {revalidatePath} from "next/cache";
 import {slugify} from "@/shared/utils/slugify";
@@ -9,7 +9,6 @@ import {slugify} from "@/shared/utils/slugify";
 
 export async function createRegimentType(data: RegimentType):Promise<ActionCatchState>{
     try{
-     const api = createApi();
      await api.post("/regiments", {
          ...data,
          slug: slugify(data?.name),
@@ -27,7 +26,6 @@ export async function createRegimentType(data: RegimentType):Promise<ActionCatch
 
 export async function getRegiments(): Promise<RegimentType[]> {
     try{
-        const api = createApi();
         const {data} = await api.get<RegimentType[]>("/regiments/all");
         return data
     }catch(error){
@@ -38,7 +36,6 @@ export async function getRegiments(): Promise<RegimentType[]> {
 
 export async function getOneRegiment(slug: string):Promise<RegimentType>{
     try{
-        const api = createApi();
         const {data} = await api.get<RegimentType>(`/regiments/${slug}`);
         return data;
     }catch (error){
@@ -49,7 +46,6 @@ export async function getOneRegiment(slug: string):Promise<RegimentType>{
 
 export async function deleteOneRegiment(slug: string):Promise<ErrorObjectType | unknown>{
     try{
-        const api = createApi();
         const {data} = await api.delete(`/regiments/${slug}`);
         revalidatePath("/dashboard/regiments")
         return data;

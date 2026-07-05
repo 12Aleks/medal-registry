@@ -25,15 +25,15 @@ export class ServiceRecordsController {
     return await this.serviceRecordsService.findAll();
   }
 
-  @Get(':id')
+  @Get(':slug')
   async findOne(
-    @Param('id', ParseUUIDPipe) id: string,
+    @Param('slug', ParseUUIDPipe) slug: string,
   ): Promise<ServiceRecord> {
-    return await this.serviceRecordsService.findOne(id);
+    return await this.serviceRecordsService.findOne(slug);
   }
 
-  @Delete(':id')
-  async remove(@Param('id', ParseUUIDPipe) id: string) {
-    return await this.serviceRecordsService.remove(id);
+  @Delete(':slug')
+  async remove(@Param('slug', ParseUUIDPipe) slug: string) {
+    return await this.serviceRecordsService.remove(slug);
   }
 }

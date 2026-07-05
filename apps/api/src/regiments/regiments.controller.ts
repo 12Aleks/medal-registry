@@ -1,4 +1,11 @@
-import { Body, Controller, Get, Post } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Get,
+  Param,
+  ParseUUIDPipe,
+  Post,
+} from '@nestjs/common';
 import { RegimentsService } from './regiments.service';
 import { CreateRegimentDto } from './dto/create-regiment.dto';
 
@@ -14,5 +21,10 @@ export class RegimentsController {
   @Get('all')
   getAll() {
     return this.regimentService.getAll();
+  }
+
+  @Get(':slug')
+  getOneRegiment(@Param('slug') slug: string) {
+    return this.regimentService.findOne(slug);
   }
 }

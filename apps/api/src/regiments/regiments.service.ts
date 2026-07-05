@@ -1,4 +1,8 @@
-import { ConflictException, Injectable } from '@nestjs/common';
+import {
+  ConflictException,
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Regiment } from './regiments.entity';
 import { Repository } from 'typeorm';
@@ -25,7 +29,13 @@ export class RegimentsService {
     return this.regimentRepository.save(regiment);
   }
 
-  async getAll() {
+  async findOne(slug: string): Promise<Regiment> {
+    const regiment = await this.regimentRepository.findOne({ where: { slug } });
+    if (!regiment) throw new NotFoundException(`Regiment ${slug} not found`);
+    return regiment;
+  }
+
+  async getAll(): Promise<Regiment[]> {
     return await this.regimentRepository.find();
   }
 }
