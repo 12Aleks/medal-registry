@@ -40,13 +40,4 @@ export async function getOneSoldier(slug: string):Promise<SoldierType | ActionCa
     }
 }
 
-export async function getDashboardData() {
-    try {
-        const res = await api.get('/soldiers/dashboard/status,');
-        return res.data;
-    } catch (error) {
-        console.error("Failed to fetch dashboard stats", error);
-        return { success: false, message: error instanceof Error ? error.message : 'An unexpected error occurred' };
-    }
-}
 

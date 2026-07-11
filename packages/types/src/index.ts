@@ -5,6 +5,7 @@ export * from './soldier'
 export * from  './regiment'
 export * from  './service_record'
 export * from  './soldier_award'
+export * from  './dashboard'
 
 
 export type MetadataType = {

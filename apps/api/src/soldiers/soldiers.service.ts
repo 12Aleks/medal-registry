@@ -5,6 +5,7 @@ import { Repository } from 'typeorm';
 import { CreateSolderDto } from './dto/create-solder.dto';
 import { SoldierAward } from '../soldiers-award/soldiers-award.entity';
 import { MilitaryConflict } from '../conflicts/conflicts.entity';
+import { ServiceRecord } from '../service-records/service-record.entity';
 
 @Injectable()
 export class SoldiersService {
@@ -14,6 +15,8 @@ export class SoldiersService {
     private awardsRepo: Repository<SoldierAward>,
     @InjectRepository(MilitaryConflict)
     private conflictsRepo: Repository<MilitaryConflict>,
+    @InjectRepository(ServiceRecord)
+    private serviceRecordsRepo: Repository<ServiceRecord>,
   ) {}
 
   async create(dto: CreateSolderDto): Promise<Soldier> {
@@ -36,12 +39,17 @@ export class SoldiersService {
   }
 
   async getDashboardStats() {
-    const [soldiersCount, medalsLinkedCount, conflictsCount] =
-      await Promise.all([
-        this.soldiersRepository.count(),
-        this.awardsRepo.count(),
-        this.conflictsRepo.count(),
-      ]);
+    const [
+      soldiersCount,
+      medalsLinkedCount,
+      conflictsCount,
+      serviceRecordsCount,
+    ] = await Promise.all([
+      this.soldiersRepository.count(),
+      this.awardsRepo.count(),
+      this.conflictsRepo.count(),
+      this.serviceRecordsRepo.count(),
+    ]);
 
     const recentSoldiersRaw = await this.soldiersRepository.find({
       order: { createdAt: 'DESC' },
@@ -65,6 +73,7 @@ export class SoldiersService {
         soldiersCount,
         medalsLinkedCount,
         conflictsCount,
+        serviceRecordsCount,
       },
       recentSoldiers,
     };
