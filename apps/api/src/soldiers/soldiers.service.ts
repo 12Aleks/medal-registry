@@ -33,8 +33,47 @@ export class SoldiersService {
   }
 
   async findOneSoldier(@Param('slug') slug: string): Promise<Soldier> {
-    const soldier = await this.soldiersRepository.findOne({ where: { slug } });
+    const soldier = await this.soldiersRepository.findOne({
+      where: { slug },
+      relations: {
+        awards: {
+          medal: true,
+        },
+        serviceRecords: {
+          conflict: true,
+        },
+      },
+      select: {
+        id: true,
+        name: true,
+        surname: true,
+        rank: true,
+        slug: true,
+        awards: {
+          id: true,
+          medal: {
+            id: true,
+            name: true,
+            medalType: true,
+          },
+        },
+        serviceRecords: {
+          id: true,
+          conflict: {
+            id: true,
+            name: true,
+            startYear: true,
+            endYear: true,
+          },
+          regiment: {
+            id: true,
+            name: true,
+          },
+        },
+      },
+    });
     if (!soldier) throw new NotFoundException(`Soldier ${slug} is not found`);
+
     return soldier;
   }
 

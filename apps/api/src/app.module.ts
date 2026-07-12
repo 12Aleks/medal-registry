@@ -11,6 +11,7 @@ import { ConflictsModule } from './conflicts/conflicts.module';
 import { WantedMedalsModule } from './wanted_medals/wanted_medals.module';
 import { SoldierAwardModule } from './soldiers-award/soldiers-award.module';
 import { ColectionItemModule } from './colections-item/colections-item.module';
+import { ClaspsModule } from './clasps/clasps.module';
 
 @Module({
   imports: [
@@ -43,6 +44,7 @@ import { ColectionItemModule } from './colections-item/colections-item.module';
     WantedMedalsModule,
     SoldierAwardModule,
     ColectionItemModule,
+    ClaspsModule,
   ],
 })
 export class AppModule {}

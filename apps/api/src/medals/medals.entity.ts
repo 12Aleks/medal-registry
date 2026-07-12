@@ -8,6 +8,7 @@ import {
 } from 'typeorm';
 
 import { SoldierAward } from '../soldiers-award/soldiers-award.entity';
+import { Clasp } from '../clasps/clasps.entity';
 
 @Entity()
 export class Medal {
@@ -34,6 +35,9 @@ export class Medal {
 
   @Column({ nullable: true })
   discontinuedYear?: number;
+
+  @OneToMany(() => Clasp, (clasp) => clasp.medal)
+  clasps!: Clasp[];
 
   @OneToMany(() => SoldierAward, (sa) => sa.medal)
   soldierAwards!: SoldierAward[];

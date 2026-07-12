@@ -23,7 +23,6 @@ export class MedalsController {
 
   @Delete(':slug')
   deleteMedal(@Param('slug') slug: string) {
-    console.log(slug);
     return this.medalsService.deleteOne(slug);
   }
 }
