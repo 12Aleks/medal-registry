@@ -1,6 +1,6 @@
 "use server"
 import { api } from "@/shared/api/initialAxios";
-import { ActionCatchState, SoldierType } from "@medal-registry/types";
+import {ActionCatchState, SoldierPageType, SoldierType} from "@medal-registry/types";
 import {slugify} from "@/shared/utils/slugify";
 import {revalidatePath} from "next/cache";
 
@@ -30,9 +30,9 @@ export async function getAllSoldiers(): Promise<SoldierType[] | ActionCatchState
     }
 }
 
-export async function getOneSoldier(slug: string):Promise<SoldierType | ActionCatchState>{
+export async function getOneSoldier(slug: string):Promise<SoldierPageType | ActionCatchState>{
     try{
-        const {data} = await api.get<SoldierType>(`/soldiers/${slug}`);
+        const {data} = await api.get<SoldierPageType>(`/soldiers/${slug}`);
         return data;
     }catch (error){
         console.error("Error getting medal:", error);

@@ -2,11 +2,18 @@ import {isActionError} from "@/shared/utils/checkActionData";
 import ErrorComponent from "@/app/components/error/ErrorComponent";
 import {getDashboardData} from "@/shared/api/dashboardActions";
 import {ActionCatchState, DashboardType} from "@medal-registry/types";
-import {formatDate} from "@/shared/utils/dateFormat";
+import {Metadata} from "next";
+import SoldierItem from "@/app/dashboard/features/dashboard/SoldierItem";
+import Link from "next/link";
+
+export const metadata: Metadata = {
+    title: "Dashboard",
+    description: "Welcome to the Medal Registry Dashboard. Here you can manage your soldiers, conflicts, and medals.",
+}
 
 const DashboardPage = async ({}) => {
     const data: DashboardType | ActionCatchState = await getDashboardData()
-
+    console.log(data)
     if (isActionError(data)) return <ErrorComponent error={data}/>
 
     const {stats, recentSoldiers} = data;
@@ -35,7 +42,7 @@ const DashboardPage = async ({}) => {
                         <span className="p-2 bg-amber-50 rounded-lg text-amber-600 text-lg">🎖️</span>
                     </div>
                     <div className="flex items-baseline justify-between mt-3">
-                        <span className="text-3xl font-bold text-slate-800">42</span>
+                        <span className="text-3xl font-bold text-slate-800">{stats.medalsLinkedCount}</span>
                         <span className="text-xs font-medium text-amber-600 bg-amber-50 px-2 py-0.5 rounded-full">Total awards</span>
                     </div>
                 </div>
@@ -48,7 +55,7 @@ const DashboardPage = async ({}) => {
                         <span className="p-2 bg-slate-100 rounded-lg text-slate-700 text-lg">📜</span>
                     </div>
                     <div className="flex items-baseline justify-between mt-3">
-                        <span className="text-3xl font-bold text-slate-800">11</span>
+                        <span className="text-3xl font-bold text-slate-800">{stats.conflictsCount}</span>
                         <span
                             className="text-xs font-medium text-slate-500 bg-slate-100 px-2 py-0.5 rounded-full">Campaigns</span>
                     </div>
@@ -73,38 +80,17 @@ const DashboardPage = async ({}) => {
                 <div className="lg:col-span-2 bg-white border border-slate-200 rounded-xl shadow-sm overflow-hidden">
                     <div className="px-6 py-4 border-b border-slate-100 flex justify-between items-center">
                         <h3 className="text-base font-bold text-slate-900">Your Recently Added Soldiers</h3>
-                        <button className="text-xs font-semibold text-blue-600 hover:text-blue-800 cursor-pointer">
+                        <Link
+                            href="/dashboard/soldiers"
+                            className="text-sm font-semibold text-blue-600 hover:text-blue-800 cursor-pointer">
                             View All
-                        </button>
+                        </Link>
                     </div>
 
                     <div className="divide-y divide-slate-100">
-                        {recentSoldiers.map((soldier) => (
-                            <div key={soldier.id}
-                                 className="p-4 px-6 hover:bg-slate-50 transition-colors flex items-center justify-between">
-                                <div className="space-y-1">
-                                    <h4 className="text-sm font-semibold text-slate-800">{soldier.name}</h4>
-                                    <p className="text-xs text-slate-400">{soldier.rank}</p>
-                                </div>
-
-
-                                <div className="flex items-center space-x-3">
-                  <span className="inline-flex items-center text-xs text-slate-600 bg-slate-100 px-2 py-1 rounded">
-                    📜 {soldier.conflictsCount} conflicts
-                  </span>
-                                    <span
-                                        className="inline-flex items-center text-xs text-amber-700 bg-amber-50 border border-amber-200 px-2 py-1 rounded">
-                    🎖️ {soldier.medalsCount} medals
-                  </span>
-                                    {
-                                        soldier.createdAt &&
-                                        <span className="text-xs text-slate-400 hidden sm:inline-block w-24 text-right">
-                    {formatDate({isoDate: soldier.createdAt})}
-                  </span>
-                                    }
-                                </div>
-                            </div>
-                        ))}
+                        { recentSoldiers?.map((soldier) =>
+                            <SoldierItem key={soldier.id} soldier={soldier} />
+                        )}
                     </div>
                 </div>
 

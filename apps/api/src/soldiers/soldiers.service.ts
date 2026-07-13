@@ -47,6 +47,7 @@ export class SoldiersService {
         id: true,
         name: true,
         surname: true,
+        serviceNumber: true,
         rank: true,
         slug: true,
         awards: {
@@ -56,6 +57,8 @@ export class SoldiersService {
             name: true,
             medalType: true,
           },
+          conflict: false,
+          soldier: false,
         },
         serviceRecords: {
           id: true,
@@ -69,6 +72,7 @@ export class SoldiersService {
             id: true,
             name: true,
           },
+          soldier: false,
         },
       },
     });
