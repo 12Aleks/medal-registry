@@ -37,6 +37,12 @@ export class ServiceRecord {
   @Column({ nullable: true })
   endYear!: number;
 
+  @Column({
+    type: 'varchar',
+    default: 'active',
+  })
+  serviceType!: 'active' | 'reserve' | 'retired' | 'kia' | 'died';
+
   @CreateDateColumn()
   createdAt!: Date;
 

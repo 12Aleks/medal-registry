@@ -1,10 +1,11 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
+import { DeepPartial, Repository } from 'typeorm';
 import { ServiceRecord } from './service-record.entity';
 import { CreateServiceRecordDto } from './dto/create-service-record.dto';
 import { Soldier } from '../soldiers/soldiers.entity';
 import { Regiment } from '../regiments/regiments.entity';
+import { MilitaryConflict } from '../conflicts/conflicts.entity';
 
 @Injectable()
 export class ServiceRecordsService {
@@ -17,6 +18,9 @@ export class ServiceRecordsService {
 
     @InjectRepository(Regiment)
     private readonly regimentsRepo: Repository<Regiment>,
+
+    @InjectRepository(MilitaryConflict)
+    private readonly conflictsRepo: Repository<MilitaryConflict>,
   ) {}
 
   async create(dto: CreateServiceRecordDto): Promise<ServiceRecord> {
@@ -32,13 +36,27 @@ export class ServiceRecordsService {
       );
     }
 
+    let conflict: MilitaryConflict | null = null;
+    if (dto.conflictId) {
+      const foundConflict = await this.conflictsRepo.findOneBy({
+        id: dto.conflictId,
+      });
+      if (!foundConflict) {
+        throw new NotFoundException(
+          `Military Conflict with id ${dto.conflictId} not found`,
+        );
+      }
+      conflict = foundConflict;
+    }
+
     const newRecord = this.serviceRecordRepository.create({
       soldier,
       regiment,
+      conflict,
       startYear: dto.startYear,
       endYear: dto.endYear,
-      conflict: dto.conflictId ? { id: dto.conflictId } : undefined,
-    });
+      serviceType: dto.serviceType,
+    } as DeepPartial<ServiceRecord>);
 
     return await this.serviceRecordRepository.save(newRecord);
   }
