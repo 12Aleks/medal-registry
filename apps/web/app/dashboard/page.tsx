@@ -5,6 +5,7 @@ import {ActionCatchState, DashboardType} from "@medal-registry/types";
 import {Metadata} from "next";
 import SoldierItem from "@/app/dashboard/features/dashboard/SoldierItem";
 import Link from "next/link";
+import QuickAction from "@/app/dashboard/features/dashboard/QuickAction";
 
 export const metadata: Metadata = {
     title: "Dashboard",
@@ -95,21 +96,7 @@ const DashboardPage = async ({}) => {
                 </div>
 
 
-                <div
-                    className="bg-slate-950 text-white border border-slate-900 rounded-xl p-6 shadow-sm flex flex-col justify-between min-h-[220px]">
-                    <div className="space-y-2">
-                        <span className="text-xs font-bold uppercase tracking-wider text-slate-400">Quick Action</span>
-                        <h3 className="text-lg font-bold">Expand the Registry</h3>
-                        <p className="text-slate-400 text-xs leading-relaxed">
-                            Do you know a veteran or an ancestor who served? Add their record, link their medals, and
-                            preserve history.
-                        </p>
-                    </div>
-                    <button
-                        className="w-full mt-4 bg-white text-slate-950 font-semibold text-sm py-2.5 px-4 rounded-lg hover:bg-slate-100 transition-colors cursor-pointer text-center shadow-sm">
-                        + Add New Soldier
-                    </button>
-                </div>
+                <QuickAction />
 
             </div>
         </div>

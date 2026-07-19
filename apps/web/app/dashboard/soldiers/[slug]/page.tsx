@@ -125,7 +125,7 @@ const SoldierPage = async ({ params }: ParamsPropsType) => {
 
                         <div className="space-y-3">
                             {awards.map((award) => (
-                                <MedalItem key={award.id} award={award} />
+                                <MedalItem key={award.id} award={award} slug={slug} />
                             ))}
                         </div>
                     </div>
