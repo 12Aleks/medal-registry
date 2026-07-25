@@ -12,8 +12,7 @@ type MedalItemType = {
             slug: string;
         };
     }
-
-}
+};
 
 const MedalItem = ({ award }: MedalItemType) => {
     return (

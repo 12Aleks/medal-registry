@@ -56,6 +56,7 @@ export class SoldiersService {
             id: true,
             name: true,
             medalType: true,
+            slug: true,
           },
           conflict: false,
           soldier: false,

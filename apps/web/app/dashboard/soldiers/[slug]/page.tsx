@@ -1,12 +1,12 @@
 import React from 'react';
-import { Metadata } from "next";
-import { getOneSoldier } from "@/shared/api/soldierAction";
+import {Metadata} from "next";
+import {getOneSoldier} from "@/shared/api/soldierAction";
 import {
     ActionCatchState,
-    ParamsPropsType,
+    ParamsPropsType, SoldierPageType,
     SoldierType,
 } from "@medal-registry/types";
-import { isActionError } from "@/shared/utils/checkActionData";
+import {isActionError} from "@/shared/utils/checkActionData";
 import ErrorComponent from "@/app/components/error/ErrorComponent";
 import MedalItem from "@/app/dashboard/features/soldier/MedalItem";
 
@@ -17,6 +17,7 @@ type SoldierPageResponse = SoldierType & {
             id?: string;
             name: string;
             medalType: string;
+            slug: string;
         };
     }>;
     serviceRecords: Array<{
@@ -27,20 +28,20 @@ type SoldierPageResponse = SoldierType & {
             startYear?: number | null;
             endYear?: number | null;
         };
+        regiment: {
+            id: string;
+            name: string;
+        }
     }>;
 };
 
-export async function generateMetadata({ params }: ParamsPropsType): Promise<Metadata> {
-    const { slug } = await params;
-    const data = await getOneSoldier(slug);
+export async function generateMetadata({params}: ParamsPropsType): Promise<React.JSX.Element | Metadata> {
+    const {slug} = await params;
+    const soldierData = await getOneSoldier(slug);
 
-    if (isActionError(data)) {
-        return {
-            title: 'Soldier not found',
-        };
-    }
+    if (isActionError(soldierData)) return <ErrorComponent error={soldierData}/>
 
-    const soldier = data as SoldierPageResponse;
+    const soldier = soldierData as unknown as SoldierPageResponse;
     const fullName = [soldier.name, soldier.surname].filter(Boolean).join(' ');
 
     return {
@@ -49,11 +50,11 @@ export async function generateMetadata({ params }: ParamsPropsType): Promise<Met
     };
 }
 
-const SoldierPage = async ({ params }: ParamsPropsType) => {
-    const { slug } = await params;
+const SoldierPage = async ({params}: ParamsPropsType) => {
+    const {slug} = await params;
     const data = await getOneSoldier(slug);
-     console.log(data)
-    if (isActionError(data)) return <ErrorComponent error={data} />;
+    console.log(data)
+    if (isActionError(data)) return <ErrorComponent error={data}/>;
 
     const soldier = data as unknown as SoldierPageResponse;
     const awards = soldier.awards ?? [];
@@ -62,8 +63,10 @@ const SoldierPage = async ({ params }: ParamsPropsType) => {
 
     return (
         <div className="space-y-6">
-            <div className="bg-white border border-slate-200 rounded-xl p-6 shadow-sm flex flex-col sm:flex-row items-center sm:items-start gap-6">
-                <div className="w-24 h-24 bg-slate-100 rounded-xl border border-slate-200 flex items-center justify-center text-slate-400 text-3xl font-light shrink-0">
+            <div
+                className="bg-white border border-slate-200 rounded-xl p-6 shadow-sm flex flex-col sm:flex-row items-center sm:items-start gap-6">
+                <div
+                    className="w-24 h-24 bg-slate-100 rounded-xl border border-slate-200 flex items-center justify-center text-slate-400 text-3xl font-light shrink-0">
                     {initials}
                 </div>
 
@@ -72,18 +75,26 @@ const SoldierPage = async ({ params }: ParamsPropsType) => {
                         <h1 className="text-2xl font-bold text-slate-900">
                             {soldier.name} {soldier.surname}
                         </h1>
-                        <span className="inline-flex items-center self-center sm:self-auto bg-blue-50 text-blue-700 border border-blue-100 text-xs font-semibold px-2.5 py-0.5 rounded-full">
+                        <span
+                            className="inline-flex items-center self-center sm:self-auto bg-blue-50 text-blue-700 border border-blue-100 text-xs font-semibold px-2.5 py-0.5 rounded-full">
                             {soldier.rank || 'Private'}
                         </span>
                     </div>
 
-                    <p className="text-sm text-slate-600 font-medium">
-                        2nd Battalion, Royal Sussex Regiment
-                    </p>
+                    {
+                        soldier.serviceRecords.length &&
+                        <ul className="text-sm text-slate-600 font-medium list-disc list-inside">
+                            {soldier.serviceRecords.map(record =>
+                                <li key={record.id}>{record.regiment.name}</li>
+                            )}
+                        </ul>
+                    }
 
-                    <div className="flex flex-wrap justify-center sm:justify-start gap-x-4 gap-y-1 text-xs text-slate-400">
+                    <div
+                        className="flex flex-wrap justify-center sm:justify-start gap-x-4 gap-y-1 text-xs text-slate-400">
                         <div>
-                            Service Number: <span className="font-semibold text-slate-700">{soldier.serviceNumber || 'N/A'}</span>
+                            Service Number: <span
+                            className="font-semibold text-slate-700">{soldier.serviceNumber || 'N/A'}</span>
                         </div>
                         <div>
                             Active Years: <span className="font-semibold text-slate-700">1888 - 1901</span>
@@ -108,7 +119,8 @@ const SoldierPage = async ({ params }: ParamsPropsType) => {
                                     <div className="space-y-1">
                                         <h3 className="text-sm font-semibold text-slate-800">{record.conflict.name}</h3>
                                     </div>
-                                    <span className="text-xs font-medium bg-white border border-slate-200 text-slate-600 px-2 py-1 rounded">
+                                    <span
+                                        className="text-xs font-medium bg-white border border-slate-200 text-slate-600 px-2 py-1 rounded">
                                         {record.conflict.startYear || 'N/A'} - {record.conflict.endYear || 'Present'}
                                     </span>
                                 </div>
@@ -125,7 +137,7 @@ const SoldierPage = async ({ params }: ParamsPropsType) => {
 
                         <div className="space-y-3">
                             {awards.map((award) => (
-                                <MedalItem key={award.id} award={award} slug={slug} />
+                                <MedalItem key={award.id} award={award}/>
                             ))}
                         </div>
                     </div>

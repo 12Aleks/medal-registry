@@ -1,4 +1,5 @@
 import Link from "next/link";
+import {PATHS} from "@/shared/config/paths";
 
 type SidebarType = {
     open: boolean;
@@ -38,12 +39,14 @@ export default function Sidebar({open, onClose}: SidebarType) {
           md:translate-x-0 md:static
         `}
             >
-                <div className="flex items-center justify-between p-4 border-b border-gray-700">
-                    <span className="font-semibold">Dashboard</span>
+                <div className="flex items-center justify-between py-4 px-5 border-b border-gray-700">
+                    <Link className="font-semibold"
+                          href={PATHS.dashboard.main}>
+                    Dashboard</Link>
                     <button
                         onClick={onClose}
                         className="md:hidden cursor-pointer"
-                        aria-label="Close menu"
+                        aria-label="Close menu text-white"
                     >
                         ✕
                     </button>
