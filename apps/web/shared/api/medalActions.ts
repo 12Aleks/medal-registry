@@ -1,7 +1,7 @@
 "use server"
 
 import {createApi} from "@/shared/api/initialAxios";
-import {ErrorObjectType, MedalType} from "@medal-registry/types";
+import {ErrorObjectType, MedalPageType, MedalType} from "@medal-registry/types";
 import {revalidatePath} from "next/cache";
 import {slugify} from "@/shared/utils/slugify";
 
@@ -34,10 +34,10 @@ export async function getMedals(): Promise<MedalType[]> {
     }
 }
 
-export async function getOneMedal(slug: string):Promise<MedalType>{
+export async function getOneMedal(slug: string):Promise<MedalType & MedalPageType>{
     try{
         const api = createApi();
-        const {data} = await api.get<MedalType>(`/medals/${slug}`);
+        const {data} = await api.get<MedalType & MedalPageType>(`/medals/${slug}`);
         return data;
     }catch (error){
         console.error("Error getting medal:", error);

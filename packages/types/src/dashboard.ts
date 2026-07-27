@@ -1,6 +1,6 @@
 import {SoldierType} from "./soldier";
 
-export type RecentSoldierType = Omit<SoldierType, 'surname' | 'serviceNumber' | 'updatedAt'> & {
+export type RecentSoldierType = Omit<SoldierType, 'serviceNumber' | 'updatedAt'> & {
     conflictsCount: number,
     medalsCount: number,
 }

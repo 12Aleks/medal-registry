@@ -1,3 +1,7 @@
+import {SoldierAwardPageType} from "./soldier_award";
+import {ServiceRecordType} from "./service_record";
+import {SoldierType} from "./soldier";
+
 export interface MedalType {
   id?: string;
   name: string;
@@ -9,6 +13,9 @@ export interface MedalType {
   discontinuedYear?: number;
 }
 
+export type MedalPageType = {
+  soldierAwards: SoldierType[];
+}
 
 // export interface CreateSoldierAwardInput {
 //   soldierId: string

@@ -17,13 +17,13 @@ export class SoldierAward {
   @PrimaryGeneratedColumn('uuid')
   id!: string;
 
-  @ManyToOne(() => Soldier, (s) => s.awards, { eager: true })
+  @ManyToOne(() => Soldier, (s) => s.awards)
   soldier!: Soldier;
 
-  @ManyToOne(() => Medal, (m) => m.soldierAwards, { eager: true })
+  @ManyToOne(() => Medal, (m) => m.soldierAwards)
   medal!: Medal;
 
-  @ManyToOne(() => MilitaryConflict, { eager: true, nullable: true })
+  @ManyToOne(() => MilitaryConflict, { nullable: true })
   conflict?: MilitaryConflict;
 
   @Column({ nullable: true })

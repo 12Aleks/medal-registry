@@ -16,7 +16,7 @@ function SoldierItem({soldier} : SoldierItemType) {
             className="p-4 px-6 hover:bg-slate-50 transition-colors flex items-center justify-between"
         >
             <div className="space-y-1">
-                <h4 className="text-base font-semibold text-slate-800">{soldier.name}</h4>
+                <h4 className="text-base font-semibold text-slate-800">{soldier.name} {soldier.surname}</h4>
                 <p className="text-sm text-slate-400">{soldier.rank}</p>
             </div>
 

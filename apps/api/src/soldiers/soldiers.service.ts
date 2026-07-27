@@ -41,6 +41,7 @@ export class SoldiersService {
         },
         serviceRecords: {
           conflict: true,
+          regiment: true,
         },
       },
       select: {
