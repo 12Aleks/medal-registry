@@ -3,9 +3,9 @@ import ErrorComponent from "@/app/components/error/ErrorComponent";
 import {getDashboardData} from "@/shared/api/dashboardActions";
 import {ActionCatchState, DashboardType} from "@medal-registry/types";
 import {Metadata} from "next";
-import SoldierItem from "@/app/dashboard/features/dashboard/SoldierItem";
 import Link from "next/link";
 import QuickAction from "@/app/dashboard/features/dashboard/QuickAction";
+import SoldierItem from "@/app/dashboard/components/SoldierItem";
 
 export const metadata: Metadata = {
     title: "Dashboard",

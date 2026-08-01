@@ -1,10 +1,11 @@
 import {Metadata} from "next";
-import {MedalPageType, MedalType, ParamsPropsType} from "@medal-registry/types";
+import {ClaspType, MedalPageType, MedalType, ParamsPropsType} from "@medal-registry/types";
 import {getOneMedal} from "@/shared/api/medalActions";
 import Index from "@/app/components/loader";
 import ImageComponent from "@/app/components/image/ImageComponent";
 import Link from "next/link";
 import SoldierItem from "@/app/dashboard/components/SoldierItem";
+import {Button} from "@/components/ui/button";
 
 export async function generateMetadata({ params }: ParamsPropsType): Promise<Metadata> {
     const { slug } = await params;
@@ -27,7 +28,7 @@ const MedalPage = async ({params}: ParamsPropsType) => {
         );
     }
     const imageUrl = medal?.images?.at(0);
-    console.log(medal)
+
     return (
         <div className="min-h-screen bg-[#F8FAFC] p-6 text-slate-800">
 
@@ -83,13 +84,12 @@ const MedalPage = async ({params}: ParamsPropsType) => {
                         <div className="mt-3 grid grid-cols-2 gap-4">
                             <div>
                                 <p className="text-xl font-bold text-white">
-                                    {medal?.awards?.length ?? 0}
+                                    {medal?.soldierAwards?.length ?? 0}
                                 </p>
                                 <p className="text-xs text-slate-400">Soldiers linked</p>
                             </div>
                             <div>
                                 <p className="text-xl font-bold text-white">
-
                                     {medal?.clasps?.length ?? 0}
                                 </p>
                                 <p className="text-xs text-slate-400">Bars available</p>
@@ -104,14 +104,12 @@ const MedalPage = async ({params}: ParamsPropsType) => {
                     <div className="rounded-2xl border border-slate-100 bg-white p-6 shadow-sm">
                         <div className="mb-4 flex items-center justify-between">
                             <h2 className="text-base font-semibold text-slate-900">Medal Clasps / Bars</h2>
-                            <button className="rounded-md bg-slate-100 px-3 py-1.5 text-xs font-semibold text-slate-700 transition hover:bg-slate-200">
-                                + Add Clasp
-                            </button>
+                            <Button variant='customBlue' className='text-sm/6 cursor-pointer'>+ Add Clasp</Button>
                         </div>
 
                         {medal?.clasps && medal.clasps.length > 0 ? (
                             <div className="flex flex-wrap gap-2">
-                                {medal.clasps.map((clasp: any, index: number) => (
+                                {medal.clasps.map((clasp: ClaspType, index: number) => (
                                     <div
                                         key={index}
                                         className="flex items-center gap-2 rounded-lg border border-slate-100 bg-slate-50 px-3 py-2 text-xs font-medium text-slate-700"

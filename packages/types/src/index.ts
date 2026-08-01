@@ -6,6 +6,7 @@ export * from  './regiment'
 export * from  './service_record'
 export * from  './soldier_award'
 export * from  './dashboard'
+export * from  './clasp'
 
 
 export type MetadataType = {
