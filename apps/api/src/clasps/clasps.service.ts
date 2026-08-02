@@ -32,4 +32,36 @@ export class ClaspsService {
 
     return this.claspRepository.save(clasp);
   }
+
+  async findAll(): Promise<Clasp[]> {
+    return await this.claspRepository.find({
+      relations: ['medal'],
+    });
+  }
+
+  async findByMedal(medalId: string): Promise<Clasp[]> {
+    return await this.claspRepository.find({
+      where: { medal: { id: medalId } },
+      relations: ['medal'],
+    });
+  }
+
+  async findOne(id: string): Promise<Clasp> {
+    const clasp = await this.claspRepository.findOne({
+      where: { id },
+      relations: ['medal'],
+    });
+
+    if (!clasp) {
+      throw new NotFoundException(`Clasp with ID "${id}" not found`);
+    }
+
+    return clasp;
+  }
+
+  async remove(id: string): Promise<{ message: string }> {
+    const clasp = await this.findOne(id);
+    await this.claspRepository.remove(clasp);
+    return { message: `Clasp with ID "${id}" deleted successfully` };
+  }
 }

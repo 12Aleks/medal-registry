@@ -1,10 +1,15 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import {
+  Injectable,
+  NotFoundException,
+  BadRequestException,
+} from '@nestjs/common';
 import { SoldierAward } from './soldiers-award.entity';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
+import { Repository, In } from 'typeorm';
 import { CreateSoldierAwardDto } from './dto/create-soldier-award.dto';
 import { Medal } from '../medals/medals.entity';
 import { Soldier } from '../soldiers/soldiers.entity';
+import { Clasp } from '../clasps/clasps.entity';
 
 @Injectable()
 export class SoldiersAwardService {
@@ -14,6 +19,8 @@ export class SoldiersAwardService {
     @InjectRepository(Medal) private readonly medalsRepo: Repository<Medal>,
     @InjectRepository(Soldier)
     private readonly soldiersRepo: Repository<Soldier>,
+    @InjectRepository(Clasp)
+    private readonly claspsRepo: Repository<Clasp>,
   ) {}
 
   async create(dto: CreateSoldierAwardDto): Promise<SoldierAward> {
@@ -25,9 +32,30 @@ export class SoldiersAwardService {
     if (!medal)
       throw new NotFoundException(`Medal with id ${dto.medalId} not found`);
 
+    let clasps: Clasp[] = [];
+
+    if (dto.claspIds && dto.claspIds.length > 0) {
+      clasps = await this.claspsRepo.find({
+        where: { id: In(dto.claspIds) },
+        relations: ['medal'],
+      });
+
+      if (clasps.length !== dto.claspIds.length) {
+        throw new NotFoundException('One or more clasps were not found');
+      }
+
+      const invalidClasp = clasps.find((c) => c.medal.id !== medal.id);
+      if (invalidClasp) {
+        throw new BadRequestException(
+          `Clasp '${invalidClasp.name}' does not belong to the selected medal`,
+        );
+      }
+    }
+
     const newAward = this.awardRepository.create({
       soldier,
       medal,
+      clasps,
       yearAwarded: dto.yearAwarded,
       conflict: dto.conflictId ? { id: dto.conflictId } : undefined,
     });
@@ -36,12 +64,15 @@ export class SoldiersAwardService {
   }
 
   async findAll(): Promise<SoldierAward[]> {
-    return await this.awardRepository.find();
+    return await this.awardRepository.find({
+      relations: ['soldier', 'medal', 'clasps', 'conflict'],
+    });
   }
 
-  async findBySoldier(soldierId: string): Promise<SoldierAward[]> {
+  async findBySoldier(soldierSlug: string): Promise<SoldierAward[]> {
     return await this.awardRepository.find({
-      where: { soldier: { slug: soldierId } },
+      where: { soldier: { slug: soldierSlug } },
+      relations: ['medal', 'clasps', 'conflict'],
     });
   }
 }

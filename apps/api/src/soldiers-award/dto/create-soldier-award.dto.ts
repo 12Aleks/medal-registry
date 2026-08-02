@@ -1,4 +1,4 @@
-import { IsUUID, IsOptional, IsNumber } from 'class-validator';
+import { IsUUID, IsOptional, IsNumber, IsArray } from 'class-validator';
 
 export class CreateSoldierAwardDto {
   @IsUUID()
@@ -10,6 +10,11 @@ export class CreateSoldierAwardDto {
   @IsOptional()
   @IsUUID()
   conflictId?: string;
+
+  @IsOptional()
+  @IsArray()
+  @IsUUID('4', { each: true })
+  claspIds?: string[];
 
   @IsOptional()
   @IsNumber()

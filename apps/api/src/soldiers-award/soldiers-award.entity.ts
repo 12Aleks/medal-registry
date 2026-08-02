@@ -6,11 +6,14 @@ import {
   OneToMany,
   CreateDateColumn,
   UpdateDateColumn,
+  JoinTable,
+  ManyToMany,
 } from 'typeorm';
 import { CollectionItem } from '../colections-item/colections-item.entity';
 import { MilitaryConflict } from '../conflicts/conflicts.entity';
 import { Medal } from '../medals/medals.entity';
 import { Soldier } from '../soldiers/soldiers.entity';
+import { Clasp } from '../clasps/clasps.entity';
 
 @Entity()
 export class SoldierAward {
@@ -22,6 +25,12 @@ export class SoldierAward {
 
   @ManyToOne(() => Medal, (m) => m.soldierAwards)
   medal!: Medal;
+
+  @ManyToMany(() => Clasp)
+  @JoinTable({
+    name: 'soldier_award_clasps',
+  })
+  clasps?: Clasp[];
 
   @ManyToOne(() => MilitaryConflict, { nullable: true })
   conflict?: MilitaryConflict;
