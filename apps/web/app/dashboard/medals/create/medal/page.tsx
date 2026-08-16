@@ -1,5 +1,5 @@
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card"
-import { CreateMedalForm } from "../create-medal-form"
+import { CreateMedalForm } from "../../create-medal-form"
 
 export default function CreateMedalPage() {
 
