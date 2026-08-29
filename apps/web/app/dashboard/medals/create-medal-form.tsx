@@ -23,6 +23,7 @@ import {useRouter} from "next/navigation";
 type MedalFormValues = z.infer<typeof medalSchema>
 
 export function CreateMedalForm() {
+    const router = useRouter();
     const form = useForm<MedalFormValues>({
         resolver: zodResolver(medalSchema),
         defaultValues: {
@@ -35,18 +36,10 @@ export function CreateMedalForm() {
         },
     })
 
-    const router = useRouter();
-
-    const onSuccess = () => router.back();
-
     const onSubmit: SubmitHandler<MedalFormValues> = async (values) => {
-        console.log("Saving data:", values);
-
         const result = await createMedal(values as MedalType)
         if (result.success) {
-            onSuccess()
-        } else {
-            console.error("Failed to create medal")
+            router.back();
         }
     }
 

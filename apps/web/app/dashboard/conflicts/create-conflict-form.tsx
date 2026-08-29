@@ -10,10 +10,12 @@ import {Input} from "@/components/ui/input";
 import {Textarea} from "@/components/ui/textarea";
 import {createConflict} from "@/shared/api/conflictActions";
 import {useRouter} from "next/navigation"
+import {useTransition} from "react";
 
 type ConflictFormValues = z.infer<typeof ConflictSchema>
 
 const CreateConflictForm = () => {
+    const [isPending, startTransition] = useTransition();
     const router = useRouter();
     const form = useForm<ConflictFormValues>({
         resolver: zodResolver(ConflictSchema),
@@ -25,14 +27,13 @@ const CreateConflictForm = () => {
         }
     });
 
-    const onSuccess = () => router.back();
-
     const onSubmit = async (conflict: Omit<ConflictType, "id" | "createdAt" | 'updatedAt' | 'slug'> ) => {
         const result = await createConflict(conflict as ConflictType)
         if (result.success) {
-            onSuccess()
-        } else {
-            console.error("Failed to create medal")
+            startTransition(() => {
+                router.refresh();
+                router.back();
+            })
         }
     }
 

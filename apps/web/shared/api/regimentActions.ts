@@ -4,16 +4,16 @@ import { api } from "@/shared/api/initialAxios";
 import {ActionCatchState, ErrorObjectType, RegimentType} from "@medal-registry/types";
 import {revalidatePath} from "next/cache";
 import {slugify} from "@/shared/utils/slugify";
-
-
+import {PATHS} from "@/shared/config/paths";
 
 export async function createRegimentType(data: RegimentType):Promise<ActionCatchState>{
     try{
-     await api.post("/regiments", {
+     await api.post( PATHS.dashboard.regiments.main, {
          ...data,
          slug: slugify(data?.name),
          // images: data.images || [],
      });
+
      return { success: true, message: "Regiment created successfully." }
     }catch(error){
         console.error("Error creating regiment:", error);

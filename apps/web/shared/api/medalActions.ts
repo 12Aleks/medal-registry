@@ -4,18 +4,19 @@ import {createApi} from "@/shared/api/initialAxios";
 import {ErrorObjectType, MedalPageType, MedalType} from "@medal-registry/types";
 import {revalidatePath} from "next/cache";
 import {slugify} from "@/shared/utils/slugify";
+import {PATHS} from "@/shared/config/paths";
 
 
 
 export async function createMedal(data: MedalType):Promise<{ success: boolean }>{
     try{
         const api = createApi();
-     await api.post("/medals", {
+     await api.post( PATHS.dashboard.medals.main , {
          ...data,
          slug: slugify(data?.name),
          images: data.images || [],
      });
-     revalidatePath("/dashboard/medals")
+     revalidatePath(PATHS.dashboard.medals.list);
      return { success: true }
     }catch(error){
         console.error("Error creating medal:", error);

@@ -3,16 +3,17 @@ import { api } from "@/shared/api/initialAxios";
 import {ActionCatchState, SoldierPageType, SoldierType} from "@medal-registry/types";
 import {slugify} from "@/shared/utils/slugify";
 import {revalidatePath} from "next/cache";
+import {PATHS} from "@/shared/config/paths";
 
 
 export async function createSoldier(data: SoldierType): Promise<ActionCatchState>{
     try{
      const slugData = `${data?.name ?? ''} ${data?.surname ?? ''} ${data?.serviceNumber ?? ''}`.trim();
-     await api.post('/soldiers', {
+     await api.post(PATHS.dashboard.soldiers.main, {
          ...data,
          slug: slugify(slugData),
      })
-     revalidatePath("/dashboard/conflicts");
+     revalidatePath(PATHS.dashboard.soldiers.list);
      return { success: true, message: 'Solder successfully created!' };
     }catch (error){
         console.error("Error creating solder:", error);

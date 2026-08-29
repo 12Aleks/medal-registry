@@ -1,6 +1,7 @@
 "use client"
 
 import {useForm, SubmitHandler} from "react-hook-form"
+import { startTransition } from "react";
 import {zodResolver} from "@hookform/resolvers/zod"
 import {z} from "zod"
 import {Button} from "@/components/ui/button"
@@ -17,12 +18,15 @@ import {
 
 import {createRegimentType} from "@/shared/api/regimentActions"
 import {RegimentType} from "@medal-registry/types"
-import {useRouter} from "next/navigation";
 import {regimentSchema} from "@/shared/lib/schema/regiment";
+import {useRouter} from "next/navigation";
+import {PATHS} from "@/shared/config/paths";
+
 
 type RegimentFormValues = z.infer<typeof regimentSchema>
 
 export function CreateRegimentForm() {
+    const router = useRouter();
     const form = useForm<RegimentFormValues>({
         resolver: zodResolver(regimentSchema),
         defaultValues: {
@@ -32,19 +36,13 @@ export function CreateRegimentForm() {
         },
     })
 
-    const router = useRouter();
-
-    const onSuccess = () => {
-        router.replace("/dashboard/regiments");
-        router.refresh();
-    };
-
     const onSubmit: SubmitHandler<RegimentFormValues> = async (values) => {
         const result = await createRegimentType(values as RegimentType)
+
         if (result.success) {
-            onSuccess()
-        } else {
-            console.error("Failed to create regiment:", result.message)
+            startTransition(() => {
+                router.push(PATHS.dashboard.regiments.list)
+            })
         }
     }
 
