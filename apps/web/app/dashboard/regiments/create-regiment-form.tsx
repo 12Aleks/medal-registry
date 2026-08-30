@@ -22,11 +22,13 @@ import {regimentSchema} from "@/shared/lib/schema/regiment";
 import {useRouter} from "next/navigation";
 import {PATHS} from "@/shared/config/paths";
 
+type CreateFormProps = {
+    onSuccess?: () => void;
+}
 
 type RegimentFormValues = z.infer<typeof regimentSchema>
 
-export function CreateRegimentForm() {
-    const router = useRouter();
+export function CreateRegimentForm({ onSuccess }: CreateFormProps) {
     const form = useForm<RegimentFormValues>({
         resolver: zodResolver(regimentSchema),
         defaultValues: {
@@ -38,11 +40,10 @@ export function CreateRegimentForm() {
 
     const onSubmit: SubmitHandler<RegimentFormValues> = async (values) => {
         const result = await createRegimentType(values as RegimentType)
-
         if (result.success) {
-            startTransition(() => {
-                router.push(PATHS.dashboard.regiments.list)
-            })
+            if (onSuccess) {
+                onSuccess();
+            }
         }
     }
 

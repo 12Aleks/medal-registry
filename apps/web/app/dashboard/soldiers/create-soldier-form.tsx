@@ -17,13 +17,15 @@ import {
 import {SoldierType} from "@medal-registry/types"
 import {solderSchema} from "@/shared/lib/schema/solder";
 import {createSoldier} from "@/shared/api/soldierAction";
-import {useRouter} from "next/navigation";
 
+type CreateFormProps = {
+    onSuccess?: () => void;
+}
 
 type SoldierFormValues = z.infer<typeof solderSchema>
 
-export function CreateSoldierForm() {
-    const router = useRouter();
+export function CreateSoldierForm({ onSuccess }: CreateFormProps) {
+
     const form = useForm<SoldierFormValues>({
         resolver: zodResolver(solderSchema),
         defaultValues: {
@@ -37,7 +39,9 @@ export function CreateSoldierForm() {
     const onSubmit: SubmitHandler<SoldierFormValues> = async (values) => {
         const result = await createSoldier(values as SoldierType)
         if (result.success) {
-            router.back()
+            if (onSuccess) {
+                onSuccess();
+            }
         }
     }
 

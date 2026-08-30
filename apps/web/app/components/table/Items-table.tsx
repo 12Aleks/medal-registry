@@ -18,7 +18,7 @@ type TableType<T> = {
 
 export default function ItemsTable<T>  ({data, columns, rowKey, rowRender} : TableType<T>) {
     return (
-        <div className="relative overflow-x-auto bg-neutral-primary-soft shadow-xs rounded-base border border-default">
+        <div className="max-h-[90vh] relative overflow-x-auto bg-neutral-primary-soft shadow-xs rounded-base border border-default">
             <table className={clsx(styles.table_wrapper, 'w-full text-sm text-left rtl:text-right text-body')}>
                 <thead className="bg-background-blue text-white border-b border-default">
                 <tr>

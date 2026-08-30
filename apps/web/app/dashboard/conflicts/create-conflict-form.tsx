@@ -9,14 +9,14 @@ import {ConflictType} from "@medal-registry/types";
 import {Input} from "@/components/ui/input";
 import {Textarea} from "@/components/ui/textarea";
 import {createConflict} from "@/shared/api/conflictActions";
-import {useRouter} from "next/navigation"
-import {useTransition} from "react";
+
+type CreateFormProps = {
+    onSuccess?: () => void;
+}
 
 type ConflictFormValues = z.infer<typeof ConflictSchema>
 
-const CreateConflictForm = () => {
-    const [isPending, startTransition] = useTransition();
-    const router = useRouter();
+const CreateConflictForm = ({ onSuccess }: CreateFormProps) => {
     const form = useForm<ConflictFormValues>({
         resolver: zodResolver(ConflictSchema),
         defaultValues: {
@@ -30,10 +30,9 @@ const CreateConflictForm = () => {
     const onSubmit = async (conflict: Omit<ConflictType, "id" | "createdAt" | 'updatedAt' | 'slug'> ) => {
         const result = await createConflict(conflict as ConflictType)
         if (result.success) {
-            startTransition(() => {
-                router.refresh();
-                router.back();
-            })
+            if (onSuccess) {
+                onSuccess();
+            }
         }
     }
 

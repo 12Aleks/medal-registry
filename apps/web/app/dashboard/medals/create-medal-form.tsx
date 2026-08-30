@@ -18,12 +18,14 @@ import {
 
 import {createMedal} from "@/shared/api/medalActions"
 import {MedalType} from "@medal-registry/types"
-import {useRouter} from "next/navigation";
+
+type CreateFormProps = {
+    onSuccess?: () => void;
+}
 
 type MedalFormValues = z.infer<typeof medalSchema>
 
-export function CreateMedalForm() {
-    const router = useRouter();
+export function CreateMedalForm({ onSuccess }: CreateFormProps) {
     const form = useForm<MedalFormValues>({
         resolver: zodResolver(medalSchema),
         defaultValues: {
@@ -39,7 +41,9 @@ export function CreateMedalForm() {
     const onSubmit: SubmitHandler<MedalFormValues> = async (values) => {
         const result = await createMedal(values as MedalType)
         if (result.success) {
-            router.back();
+            if (onSuccess) {
+                onSuccess();
+            }
         }
     }
 
