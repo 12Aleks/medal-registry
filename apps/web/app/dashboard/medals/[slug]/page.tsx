@@ -104,7 +104,10 @@ const MedalPage = async ({params}: ParamsPropsType) => {
                     <div className="rounded-2xl border border-slate-100 bg-white p-6 shadow-sm">
                         <div className="mb-4 flex items-center justify-between">
                             <h2 className="text-base font-semibold text-slate-900">Medal Clasps / Bars</h2>
-                            <Button variant='customBlue' className='text-sm/6 cursor-pointer'>+ Add Clasp</Button>
+                            <Link
+                                href={`/dashboard/medals/${medal.slug}/create-clasp`}
+                                className='text-sm/6 cursor-pointer'
+                            >+ Add Clasp</Link>
                         </div>
 
                         {medal?.clasps && medal.clasps.length > 0 ? (

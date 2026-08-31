@@ -14,7 +14,7 @@ export const metadata: Metadata = {
 
 const DashboardPage = async ({}) => {
     const data: DashboardType | ActionCatchState = await getDashboardData()
-    console.log(data)
+
     if (isActionError(data)) return <ErrorComponent error={data}/>
 
     const {stats, recentSoldiers} = data;

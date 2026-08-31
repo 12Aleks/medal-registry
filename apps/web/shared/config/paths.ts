@@ -1,6 +1,10 @@
 export const PATHS = {
     dashboard: {
         main: '/dashboard',
+        clasp: {
+            main: 'clasp',
+            create: '/dashboard/clasp/create',
+        },
         conflicts: {
             main: 'conflicts',
             create: '/dashboard/conflicts/create',
