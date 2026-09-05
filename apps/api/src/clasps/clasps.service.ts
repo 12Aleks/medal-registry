@@ -35,21 +35,27 @@ export class ClaspsService {
 
   async findAll(): Promise<Clasp[]> {
     return await this.claspRepository.find({
-      relations: ['medal'],
+      relations: {
+        medal: true,
+      },
     });
   }
 
   async findByMedal(medalId: string): Promise<Clasp[]> {
     return await this.claspRepository.find({
       where: { medal: { id: medalId } },
-      relations: ['medal'],
+      relations: {
+        medal: true,
+      },
     });
   }
 
   async findOne(id: string): Promise<Clasp> {
     const clasp = await this.claspRepository.findOne({
       where: { id },
-      relations: ['medal'],
+      relations: {
+        medal: true,
+      },
     });
 
     if (!clasp) {

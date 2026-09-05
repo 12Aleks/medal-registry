@@ -99,7 +99,10 @@ export class SoldiersService {
     const recentSoldiersRaw = await this.soldiersRepository.find({
       order: { createdAt: 'DESC' },
       take: 3,
-      relations: ['awards', 'serviceRecords'],
+      relations: {
+        awards: true,
+        serviceRecords: true,
+      },
     });
 
     const recentSoldiers = recentSoldiersRaw.map((soldier) => ({

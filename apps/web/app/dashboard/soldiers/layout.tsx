@@ -1,4 +1,3 @@
-
 interface SoldersLayoutProps {
   children: React.ReactNode
   modal: React.ReactNode

@@ -37,7 +37,9 @@ export class SoldiersAwardService {
     if (dto.claspIds && dto.claspIds.length > 0) {
       clasps = await this.claspsRepo.find({
         where: { id: In(dto.claspIds) },
-        relations: ['medal'],
+        relations: {
+          medal: true,
+        },
       });
 
       if (clasps.length !== dto.claspIds.length) {
@@ -65,14 +67,23 @@ export class SoldiersAwardService {
 
   async findAll(): Promise<SoldierAward[]> {
     return await this.awardRepository.find({
-      relations: ['soldier', 'medal', 'clasps', 'conflict'],
+      relations: {
+        soldier: true,
+        medal: true,
+        clasps: true,
+        conflict: true,
+      },
     });
   }
 
   async findBySoldier(soldierSlug: string): Promise<SoldierAward[]> {
     return await this.awardRepository.find({
       where: { soldier: { slug: soldierSlug } },
-      relations: ['medal', 'clasps', 'conflict'],
+      relations: {
+        medal: true,
+        clasps: true,
+        conflict: true,
+      },
     });
   }
 }
